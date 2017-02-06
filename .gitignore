@@ -1,0 +1,9 @@
+## ignore node
+node_modules
+bower_components
+
+## ignore idea platform
+.idea
+
+## ignore .DS_Store
+.DS_Store

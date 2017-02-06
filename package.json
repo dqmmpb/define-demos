@@ -1,0 +1,25 @@
+{
+  "name": "define-demos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "amd-optimize": "^0.6.1",
+    "browser-sync": "^2.18.7",
+    "del": "^2.2.2",
+    "events": "^1.1.1",
+    "fs": "0.0.1-security",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-load-plugins": "^1.5.0",
+    "requirejs": "^2.3.2"
+  },
+  "dependencies": {
+    "amdefine": "^1.0.1"
+  }
+}

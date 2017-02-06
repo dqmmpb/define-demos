@@ -1,3 +1,6 @@
+/*global module */
+'use strict';
+
 var add = function(x, y) {
   return x + y;
 };
@@ -23,7 +26,6 @@ var abs = function(x) {
   }
 };
 
-
 module.exports = {
   add: add,
   subtract: subtract,
@@ -31,3 +33,16 @@ module.exports = {
   divide: divide,
   abs: abs
 };
+
+console.log('------------------------');
+
+console.log(module.id);
+console.log(module.filename);
+console.log(module.loaded);
+console.log(module.parent);
+console.log(module.children);
+console.log(module.exports);
+console.log(module.paths);
+console.log(module);
+
+console.log('------------------------');

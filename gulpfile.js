@@ -32,3 +32,4 @@ gulp.task('build', ['clean'], function() {
     .pipe($.concat('app.js'))  //合并后文件
     .pipe(gulp.dest('dist'));  //输出目录
 });
+

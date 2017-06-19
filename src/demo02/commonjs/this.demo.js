@@ -285,3 +285,63 @@ var colors = require('colors');
 
 console.log('Hello'.green);
 console.log(colors.red(' world'));
+
+
+
+function myfoo() {
+  var x = 7451;
+  console.log('ooo.myfoo: ' + this.x);
+  function mybar() {
+    //console.log(this.x);
+    console.log('ooo.mybar: this.x: ' + this.x);
+    console.log('ooo.mybar: x: ' + x)
+  }
+
+  return mybar;
+}
+
+var ooo = {
+  x: 'ooo',
+  my: myfoo
+};
+
+ooo.my()();
+
+var ppp = {
+  x: 'ppp',
+  my: function() {
+    var x = 9527;
+    console.log('ppp.myfoo: this.x: ' + this.x);
+    function mybar() {
+      //console.log(this.x);
+      console.log('ppp.mybar: this.x: ' + this.x);
+      console.log('ppp.mybar: x: ' + x);
+    }
+
+    return mybar;
+  }
+};
+
+ppp.my()();
+
+
+function funlen(a, b, c) {
+  var myargs = Array.prototype.slice.apply(arguments);
+  console.log(myargs);
+  // this.lenght this指向最上层 由于最上层并没有this的length属相 因此为undefined
+  console.log(this.length);
+  console.log(funlen.length);
+  console.log(arguments.length);
+}
+
+funlen(1, 2, 3);
+funlen(1, 2);
+funlen(1);
+
+
+var fff = function() {
+  return this;
+};
+
+console.log(fff.call(5));
+

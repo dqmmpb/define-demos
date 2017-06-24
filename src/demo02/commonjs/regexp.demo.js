@@ -1,6 +1,9 @@
 var regexp_css = /http(s)?:\/\/.+?\.css$/gi;
 
 // 正则表达式的深入学习 参看http://javascript.ruanyifeng.com/stdlib/regexp.html
+// 另两篇关于此问题的讨论 但真的会从上一次结束的位置匹配吗？
+// http://vilic.info/blog/archives/531
+// http://www.cnblogs.com/_franky/archive/2010/05/02/1725859.html
 
 /**
  * 如果正则表达式带有g修饰符，则每一次test方法都从上一次结束的位置开始向后匹配。

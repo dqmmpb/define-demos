@@ -475,7 +475,8 @@ log(R.symmetricDifference(list6)(list5));
 
 var eqA = R.eqBy(R.prop('a'));
 var l3 = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];
-var l4 = [{a: 3}, {a: 4}, {a: 5}, {a: 6}];
+var l4 = [{a: 3, b: 1}, {a: 4, b: 2}, {a: 5, b: 3}, {a: 6, b: 4},
+    {a: 1, b: 5}, {a: 2, b: 6}, {a: 5, b: 7}, {a: 3, b: 8}];
 log(R.symmetricDifferenceWith(eqA, l3, l4));
 
 log(R.find(R.propEq('a', 2))(l3));
@@ -486,4 +487,168 @@ log(R.findIndex(R.propEq('a', 2))(l3));
 log(R.findIndex(R.propEq('a', 5))(l4));
 log(R.findIndex(R.propEq('a', 7))(l4));
 
+log(R.findLast(R.propEq('a', 1))(l3));
+log(R.findLast(R.propEq('a', 4))(l4));
+
+
+log(R.pluck('a')(l4));
+log(R.pluck(0)([[1, 2], [3, 4]]));
+
+var abby = {
+    name: 'Abby',
+    age: 7,
+    hair: 'blond',
+    grade: 2
+};
+var fred = {
+    name: 'Fred',
+    age: 12,
+    hair: 'blond',
+    grade: 7
+};
+var kids = [abby, fred];
+log(R.project(['name','grade'])(kids));
+
+log(l3, l4);
+log(R.transpose([l3, l4]));
+log(R.transpose([[1, 2, 3], ['a', 'b', 'c']]));
+
+log('-------------------------');
+log(l3, l4);
+log(R.mergeAll(l3));
+
+// merge
+log(R.merge(l3, l4));
+
+log(R.fromPairs([['a', 1], ['b', 2], ['c', 3]]));
+
+var byGrade = R.groupBy((student) => {
+    var score = student.score;
+    return score < 65 ? 'F' :
+        score < 70 ? 'D' :
+            score < 80 ? 'C' :
+                score < 90 ? 'B' : 'A'
+})
+
+var students = [
+    {name: 'Abby', score: 84},
+    {name: 'Eddy', score: 58},
+    {name: 'Jack', score: 69}
+];
+log(byGrade(students));
+
+
+var sortByFirstItem = R.sortBy(R.prop(0));
+log(sortByFirstItem([[-1, 1], [-2, 2], [-3, 3]]));
+
+var sortByNameCaseInsensitive = R.sortBy(
+    R.compose(R.toLower, R.prop('name'))
+);
+
+var sortByAge = R.sortBy(R.prop('age'))
+
+var people = [
+    {name: 'ALICE', age: 101},
+    {name: 'Bob', age: -10},
+    {name: 'clara', age: 314.159}
+]
+log(sortByNameCaseInsensitive(people));
+log(sortByAge(people));
+
+
+
+var hasName = R.has('name');
+log(hasName({name: 'alice'}));
+log(hasName({name: 'bob'}));
+log(hasName({name2: 'clara', age: 11}));
+log(R.has('age')({name2: 'clara', age: 11}));
+
+var point = {x: 0, y: 0};
+var pointHas = R.has(R.__, point);
+log(pointHas('x'));
+log(pointHas('y'));
+
+function Rectangle(width, height) {
+    this.width = width;
+    this.height = height;
+}
+Rectangle.prototype.area = function() {
+    return this.width * this.height;
+}
+
+var square = new Rectangle(2, 2);
+log(R.hasIn('width')(square));
+log(R.hasIn('area')(square));
+
+var abby = { name: 'Abby', age: 7, hair: 'blond'};
+var fred = { name: 'Fred', age: 12, hair: 'brown'};
+var rusty = { name: 'Rusty', age: 10, hair: 'brown'};
+var alois = { name: 'Alois', age: 15, hair: 'surly'};
+var kids = [ abby, fred, rusty, alois];
+var hasBrownHair = R.propEq('hair', 'brown');
+log(R.filter(hasBrownHair)(kids));
+
+var pred = R.whereEq({a: 1, b: 2});
+
+log(pred({a: 1}));
+log(pred({a: 1, b: 2}));
+log(pred({a: 1, b: 2, c: 3}));
+log(pred({a: 1, b: 1}));
+
+
+var pred = R.where({
+    a: R.equals('foo'),
+    b: R.complement(R.equals('bar')),
+    x: R.gt(R.__, 10),
+    y: R.lt(R.__, 20)
+});
+
+log(pred({a: 'foo', b: 'xxx', x: 11, y: 19}));
+log(pred({a: 'xxx', b: 'xxx', x: 11, y: 19}));
+log(pred({a: 'foo', b: 'bar', x: 11, y: 19}));
+log(pred({a: 'foo', b: 'xxx', x: 10, y: 19}));
+log(pred({a: 'foo', b: 'xxx', x: 11, y: 20}));
+
+
+log(R.omit(['a', 'd'])({a: 1, b: 2, c: 3, d: 4}));
+
+log(R.filter(isEven)({a: 1, b: 2, c: 3, d: 4, e: 6}));
+log(R.filter(isEven)([4, 4, 6, 5, 1, 2, 3]));
+log(R.reject(isOdd)({a: 1, b: 2, c: 3, d: 4, e: 6}));
+
+log(R.dissoc('b')({a: 1, b: 2, c: 3}));
+log(R.assoc('b', 33)({a: 1, b: 2, c: 3}));
+
+var assocWithB = R.assoc('b', R.__, {a: 1, b: 2, c: 3});
+log(assocWithB(11));
+log(assocWithB(22));
+log(assocWithB(33));
+var assocWithC = R.assoc(R.__, 55, {a: 1, b: 2, c: 3});
+log(assocWithC('a'));
+log(assocWithC('b'));
+log(assocWithC('c'));
+
+
+var obj = { a: 'sss', b: 'ttt', foo: 'bars'};
+log(R.partition(R.contains('s'))(obj));
+log(R.pick(['a', 'b'])(obj));
+log(R.pick(['a', 'b', 'c', 'd'])(obj));
+
+log(R.pickAll(['a', 'b'])(obj));
+log(R.pickAll(['a', 'b', 'c', 'd'])(obj));
+
+var obj2 = {a: 1, b: 2, A: 3, d: 4, E: 3};
+var isUpperCase = (val, key) => key.toUpperCase() === key;
+log(R.pickBy(isUpperCase)(obj2));
+
+log(R.keys(obj2));
+
+var F = function() {
+    this.x = 'X';
+}
+F.prototype.y = 'Y';
+var f = new F();
+log(R.keysIn(f));
+
+log(R.values(obj2));
 

@@ -652,3 +652,76 @@ log(R.keysIn(f));
 
 log(R.values(obj2));
 
+log(R.valuesIn(f));
+
+var raceResultsByFirstName = {
+    first: 'alice',
+    second: 'jake',
+    third: 'alice'
+};
+
+log(R.invertObj(raceResultsByFirstName));
+
+log(R.invert(raceResultsByFirstName));
+
+log(R.prop('x')(f));
+
+log(R.prop('x')({}));
+
+var double = x => x * 2;
+log(R.map(double)(obj2));
+
+var values = { x: 1, y: 2, z: 3 };
+// 再一次证明 函数式变成不改变原数据
+var prependKeyAndDouble = (num, key, obj) => key + num * 2 + JSON.stringify(obj);
+log(R.mapObjIndexed(prependKeyAndDouble)(values));
+
+
+var printKeyConcatValue = (value, key) => log(key + ':' + value);
+log(R.forEachObjIndexed(printKeyConcatValue)(values));
+
+log(R.merge({name: 'fred', age: 10})({age: 40}));
+log(R.merge(['1', '2'])(['10']));
+
+var resetToDefault = R.merge(R.__, {x: 0});
+log(resetToDefault({x: 5, y: 2}));
+
+
+log(R.mergeWith(R.concat, {
+    a: true, values: [10, 20]
+}, {
+    b: true, values: [15, 35]
+}));
+
+var o1 = { a: 1, b: 2, c: 3, d: 4 };
+var o2 = { a: 10, b: 20, c: 3, d: 40 };
+log(R.eqProps('a')(o1)(o2));
+log(R.eqProps('c')(o1)(o2));
+
+var tomato = {
+    firstName: ' Tomato ',
+    data: { elapsed: 100, remaing: 1400},
+    id: 123
+};
+
+var transformations = {
+    firstname: R.trim,
+    lastName: R.trim,
+    data: { elapsed: R.add(1), remaing: R.add(-1)}
+};
+log(R.evolve(transformations)(tomato));
+
+log(R.path(['a', 'b'], {a: {b: 2}}));
+log(R.path('a.b'.split('.'), {a: {b: 2}}));
+
+var user1 = { address: { zipCode: 90210}};
+var user2 = { address: { zipCode: 55555}};
+var user3 = { address: { zipCode: 31000}};
+var user4 = { address: { zipCode: 11000}};
+var users = [user1, user2, user3, user4];
+var isFamous = R.pathEq(['address', 'zipCode'], 55555);
+log(R.filter(isFamous)(users));
+
+log(R.assocPath(['a', 'b', 'c'], 42)({a: {b: {c: 0}}}));
+log(R.assocPath(['a', 'b', 'c'], 42)({a: 5}));
+log(R.assocPath(['a', 'b', 'c'], 42)({a: {c: 10}}));

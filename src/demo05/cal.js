@@ -4,13 +4,13 @@
 
 
 let money = 10000;
-let rate = 10;
+let rate = 9.2;
 let days = 30;
 let zrDays = 5;
-let quan = 480;
+let quan = 240;
 let year = 365;
 let zrCost = 0.2;
-let pDays = 360;
+let pDays = 180;
 let realRate = rate + quan/money/pDays*year*100;
 
 console.log('项目天数：' + pDays + '天', '年化：' + Math.round(realRate * 100, 5) / 100 + '%', '持有' + days + '天可转让');
@@ -19,7 +19,7 @@ console.log('变现天数：' + zrDays + '天', '变现手续费：变现金额�
 console.log('-------------------------------------');
 for(var i = 0; i < 10; i++) {
     let lixi = money*rate/100 * pDays/year;
-    let bianxian = money - 50*i;
+    let bianxian = money - 20*i;
     let fee = bianxian*zrCost/100;
     let zhuanqu = quan + bianxian - money - fee;
     let realDays = days + zrDays;

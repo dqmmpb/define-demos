@@ -1,6 +1,6 @@
-define(function() {
+define(function () {
 
-  var add = function(x, y) {
+  var add = function (x, y) {
     return x + y;
   };
 

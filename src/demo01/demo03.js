@@ -2,10 +2,10 @@
 
 var module1 = new Object({
   _count: 0,
-  add: function(x, y) {
+  add: function (x, y) {
     return x + y;
   },
-  multiply: function(x, y) {
+  multiply: function (x, y) {
     return x * y;
   }
 });

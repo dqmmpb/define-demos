@@ -1,11 +1,11 @@
 'use strict';
 
-var module1 = (function(mod) {
+var module1 = (function (mod) {
 
-  mod.add = function(x, y) {
+  mod.add = function (x, y) {
     return x + y;
   };
-  mod.multiply = function(x, y) {
+  mod.multiply = function (x, y) {
     return x * y;
   };
   return mod;

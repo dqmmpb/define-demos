@@ -1,4 +1,3 @@
-
 requirejs.config({
   //baseUrl: 'scripts',
   paths: {
@@ -10,6 +9,6 @@ requirejs.config({
 
 requirejs([
   'app'
-], function(app) {
+], function (app) {
 
 });

@@ -18,7 +18,7 @@ function MyFunc(name) {
 
 Object.defineProperty(MyFunc.prototype, 'say', {
   configurable: false,
-  value: function(message) {
+  value: function (message) {
     console.log(this.name + ': "' + message + '"');
   }
 });
@@ -44,6 +44,6 @@ console.log(obj.__proto__);
 console.log(func.__proto__);
 
 console.log(func);
-var bb = new func(1, 2 ,3);
+var bb = new func(1, 2, 3);
 console.log(bb);
 console.log(Object.getPrototypeOf(bb));

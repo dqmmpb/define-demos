@@ -1,4 +1,4 @@
-if(typeof requirejs === 'undefined')
+if (typeof requirejs === 'undefined')
   var requirejs = require('requirejs');
 
 requirejs.config({
@@ -12,6 +12,6 @@ requirejs.config({
 
 requirejs([
   'app'
-], function(app) {
+], function (app) {
 
 });

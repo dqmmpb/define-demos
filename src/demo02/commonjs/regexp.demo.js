@@ -29,5 +29,5 @@ console.log('2: ' + regexp_css.test(s1)); // false;
 regexp_css.lastIndex = 0;
 console.log('1: ' + regexp_css.test(s2)); // true;
 regexp_css.lastIndex = 0;
-console.log('2: ' + regexp_css.test(s2)); // false;
+console.log('2: ' + regexp_css.test(s2)); // true;
 

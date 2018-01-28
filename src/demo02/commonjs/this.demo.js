@@ -1,6 +1,6 @@
 var a = {
   b: {
-    m: function() {
+    m: function () {
       console.log(this.p);
     },
     p: 'Hello'
@@ -12,7 +12,7 @@ hello();
 var hello2 = a.b.m();
 
 
-var aa = [ 'a', , 'b'];
+var aa = ['a', , 'b'];
 function print(i) {
   console.log(i);
 }
@@ -22,7 +22,7 @@ aa.forEach(print);
 Array.apply(null, aa).forEach(print);
 
 
-var Vehicle = function() {
+var Vehicle = function () {
   this.price = 1000;
 };
 
@@ -41,7 +41,7 @@ function _new(constructor, params) {
   return (typeof result === 'Object' && result !== null) ? result : context;
 }
 
-var Person = function(name, age) {
+var Person = function (name, age) {
   this.name = name;
   this.age = age;
 };
@@ -51,18 +51,18 @@ var p = _new(Person, '张三', 1000);
 console.log(p);
 
 /*function f() {
-  console.log(new.target === f);
-}
+ console.log(new.target === f);
+ }
 
-f();
-new f();*/
+ f();
+ new f();*/
 
 
-var Obj = function(p) {
+var Obj = function (p) {
   this.p = p;
 };
 
-Obj.prototype.m = function() {
+Obj.prototype.m = function () {
   return this.p;
 };
 
@@ -79,16 +79,15 @@ console.log(this === global);
 console.log(this === module.exports);
 
 
-
 var o = {
-  f1: function() {
+  f1: function () {
     console.log(this);
     this.f3();
-    var f2 = function() {
+    var f2 = function () {
       console.log(this);
     }();
   },
-  f3: function() {
+  f3: function () {
     console.log(this);
   }
 };
@@ -98,7 +97,7 @@ o.f1();
 function Cat(name, color) {
   this.name = name;
   this.color = color;
-  this.meow = function() {
+  this.meow = function () {
     console.log('mew, mew, mew...');
   };
 }
@@ -127,7 +126,8 @@ Animal.prototype.color = 'black';
 
 console.log(cat1.color, cat2.color, cat1.color === cat2.color);
 
-var MyArray = function() {};
+var MyArray = function () {
+};
 
 MyArray.prototype = new Array();
 MyArray.prototype.constructor = MyArray;
@@ -156,17 +156,18 @@ console.log(p instanceof P);
 
 console.log(Object.getPrototypeOf({}) === Object.prototype);
 
-function f() {}
+function f() {
+}
 console.log(Object.getPrototypeOf(f));
 console.log(Object.getPrototypeOf(f) === Function.prototype);
 
-var a = { x: 1};
+var a = {x: 1};
 var b = Object.setPrototypeOf({}, a);
 
 console.log(b.x);
 
 var A = {
-  print: function() {
+  print: function () {
     console.log('hello');
   }
 };
@@ -179,9 +180,11 @@ console.log(B.__proto__);
 console.log(B.constructor);
 
 
-if(typeof Object.create !== 'function') {
-  Object.create =function(o) {
-    function F() {}
+if (typeof Object.create !== 'function') {
+  Object.create = function (o) {
+    function F() {
+    }
+
     F.prototype = o;
     return new F();
   }
@@ -200,13 +203,13 @@ console.log(o3.constructor);
 
 
 /*
-var o = Object.create(null);
-console.log(o.valueOf());*/
+ var o = Object.create(null);
+ console.log(o.valueOf());*/
 
 
 var o = Object.create({}, {
-  p1: { value: 123, enumerable: true},
-  p2: { value: 'abc', enumerable: true}
+  p1: {value: 123, enumerable: true},
+  p2: {value: 'abc', enumerable: true}
 });
 
 console.log(o);
@@ -218,13 +221,13 @@ o.p2 = 'abc';
 console.log(o);
 
 
-var P = function() {
+var P = function () {
 
 };
 
 var p = new P();
 
-var C = function(a) {
+var C = function (a) {
   this.name = 'C = function define';
 };
 C.prototype = p;
@@ -260,12 +263,11 @@ console.log(c.name);
 console.log(C.length); // 是var C = function(a)中的1，而不是function C(a,b)中的2
 
 
-
-var A = function() {
+var A = function () {
   this.a = 'A';
 };
 
-var BB = function() {
+var BB = function () {
   this.b = 'B';
 };
 
@@ -285,7 +287,6 @@ var colors = require('colors');
 
 console.log('Hello'.green);
 console.log(colors.red(' world'));
-
 
 
 function myfoo() {
@@ -309,7 +310,7 @@ ooo.my()();
 
 var ppp = {
   x: 'ppp',
-  my: function() {
+  my: function () {
     var x = 9527;
     console.log('ppp.myfoo: this.x: ' + this.x);
     function mybar() {
@@ -339,7 +340,7 @@ funlen(1, 2);
 funlen(1);
 
 
-var fff = function() {
+var fff = function () {
   return this;
 };
 

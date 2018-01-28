@@ -5,24 +5,24 @@
  */
 /*
 
-phantom.onError = function(msg, trace) {
-  var msgStack = ['PHANTOM ERROR: ' + msg];
-  if (trace && trace.length) {
-    msgStack.push('TRACE:');
-    trace.forEach(function(t) {
-      msgStack.push(' -> ' + (t.file || t.sourceURL) + ': ' + t.line + (t.function ? ' (in function ' + t.function +')' : ''));
-    });
-  }
-  console.error(msgStack.join('\n'));
-  //phantom.exit(1);
-};
-*/
+ phantom.onError = function(msg, trace) {
+ var msgStack = ['PHANTOM ERROR: ' + msg];
+ if (trace && trace.length) {
+ msgStack.push('TRACE:');
+ trace.forEach(function(t) {
+ msgStack.push(' -> ' + (t.file || t.sourceURL) + ': ' + t.line + (t.function ? ' (in function ' + t.function +')' : ''));
+ });
+ }
+ console.error(msgStack.join('\n'));
+ //phantom.exit(1);
+ };
+ */
 
 
 var page = require('webpage').create();
 var system = require('system');
 
-if(system.args.length === 1) {
+if (system.args.length === 1) {
   console.log('Usage: system.js <some URL>');
   phantom.exit();
 }
@@ -32,10 +32,10 @@ var address = system.args[1];
 
 
 // 打开网址
-page.open(address, function(status) {
+page.open(address, function (status) {
   console.log('Status: ' + status);
 
-  if(status !== 'success') {
+  if (status !== 'success') {
     console.log('FAIL to load the address');
   } else {
     t = Date.now() - t;

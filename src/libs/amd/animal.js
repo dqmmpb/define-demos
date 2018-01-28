@@ -1,10 +1,9 @@
-
-define(function(require, exports, module) {
+define(function (require, exports, module) {
   'use strict';
 
   var user = require('./user');
 
-  var say2 = function(message) {
+  var say2 = function (message) {
     console.log(user.name + ' say: "' + message + '"')
   };
 

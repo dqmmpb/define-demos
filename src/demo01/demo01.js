@@ -17,12 +17,12 @@ var start = 1, end = 9, prefix = '', subffix = ' ';
 
 var colwidth = [];
 var results = [];
-for(var i = start; i <= end; i++) {
+for (var i = start; i <= end; i++) {
   var res = [];
-  for(var j = 1; j <= i; j++) {
+  for (var j = 1; j <= i; j++) {
     var str = j + '*' + i + '=' + multiply(j, i);
     res.push(str);
-    colwidth[j-1] = colwidth[j-1] && colwidth[j-1] > str.length ? colwidth[j-1] : str.length;
+    colwidth[j - 1] = colwidth[j - 1] && colwidth[j - 1] > str.length ? colwidth[j - 1] : str.length;
   }
   results.push(res);
 }
@@ -41,20 +41,20 @@ function _suffix(str, fill, suffix) {
 
 console.time('test');
 
-for(var i = 0; i < results.length; i++) {
+for (var i = 0; i < results.length; i++) {
   var res = results[i];
-  var line = res.reduce(function(a, b, index) {
-    return a + (a ? ' ': '') + _suffix(b, colwidth[index], subffix);
+  var line = res.reduce(function (a, b, index) {
+    return a + (a ? ' ' : '') + _suffix(b, colwidth[index], subffix);
   }, '');
   console.log(line);
 }
 console.timeEnd('test');
 
 /*
-console.assert(true, 'does nothing');
+ console.assert(true, 'does nothing');
 
-try {
-  console.assert(false, 'Whoops %s', 'didn\'t work');
-} catch(err) {
-  console.error(err.stack);
-}*/
+ try {
+ console.assert(false, 'Whoops %s', 'didn\'t work');
+ } catch(err) {
+ console.error(err.stack);
+ }*/

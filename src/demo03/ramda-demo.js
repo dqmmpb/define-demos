@@ -11,8 +11,8 @@ var res2 = R.map(square)([4, 8]);
 
 console.log(res2);
 
-var add = R.curry(function(x, y) {
-    return x + y;
+var add = R.curry(function (x, y) {
+  return x + y;
 });
 
 console.log(add(4, 2));
@@ -45,7 +45,7 @@ log(R.equals(1)('1'));
 log(R.equals([1, 2, 3])([1, 2, 3]));
 log(R.equals([1, 2, 3])([1, 2, '3']));
 
-var a= {};
+var a = {};
 a.v = a;
 var b = {};
 b.v = b;
@@ -111,12 +111,11 @@ var isWorker = s => s === 'worker';
 var getWorkers = R.filter(R.pipe(propRole, isWorker));
 
 var data = [
-    {name: '张三', role: 'worker'},
-    {name: '李四', role: 'worker'},
-    {name: '李四', role: 'manager'}
+  {name: '张三', role: 'worker'},
+  {name: '李四', role: 'worker'},
+  {name: '李四', role: 'manager'}
 ]
 log(getWorkers(data));
-
 
 
 // 函数的合成
@@ -133,9 +132,9 @@ var myPipeCurry = R.curry(myPipe);
 log(myPipeCurry(3)(4));
 
 var sumOfArr = arr => {
-    var sum = 0;
-    arr.forEach( i => sum += i);
-    return sum;
+  var sum = 0;
+  arr.forEach(i => sum += i);
+  return sum;
 }
 
 var lengthOfArr = arr => arr.length;
@@ -173,8 +172,8 @@ var lte10 = R.complement(gt10);
 log(gt10(7));
 log(lte10(7));
 
-var takesThressArgs = function(a, b, c) {
-    return [a, b, c];
+var takesThressArgs = function (a, b, c) {
+  return [a, b, c];
 };
 
 var takesTwoArgs = R.binary(takesThressArgs);
@@ -184,11 +183,11 @@ var sayX = x => log('x is ' + x);
 log(R.tap(sayX)(100));
 
 var ss = R.pipe(R.assoc('a', 2), R.tap(log), R.assoc('a', 3))
-log(ss({a : 1}))
+log(ss({a: 1}))
 
 
 var f = (x, y) => {
-    return x + y;
+  return x + y;
 };
 
 log(R.zipWith(f, [1, 2, 3], ['a', 'b', 'c']));
@@ -202,7 +201,7 @@ log(R.apply(Math.abs)(nums));
 log(R.contains(4)([1, 2, 3, 4]));
 log(R.contains(4)([1, 2, 3, 5]));
 log(R.contains([42])([[42]]));
-log(R.contains({ name: 'Fred'})([{ name: 'Fred'}]));
+log(R.contains({name: 'Fred'})([{name: 'Fred'}]));
 
 
 var equals3 = R.equals(3);
@@ -325,7 +324,7 @@ log(R.indexOf(3)(numbers));
 log(R.indexOf(10)(numbers));
 
 log(R.lastIndexOf(3)([1, 2, 3, 4, 5, 3, 5, 6, 1, 3, 2]));
-log(R.lastIndexOf(10)([1,2,3,4]));
+log(R.lastIndexOf(10)([1, 2, 3, 4]));
 
 var double = x => x * 2;
 log(R.map(double)(numbers));
@@ -333,20 +332,20 @@ log(R.map(double)(numbers));
 var mapIndexed = R.addIndex(R.map);
 
 var logMap = (val, idx) => {
-    log(idx, val);
+  log(idx, val);
 }
 
 mapIndexed(logMap)(numbers);
 
 var printXPlusFive = x => {
-    log(x + 5);
+  log(x + 5);
 }
 log(R.forEach(printXPlusFive)(numbers));
 
 
 var mySubtract = (a, b) => {
-    log(a, b);
-    return a - b;
+  log(a, b);
+  return a - b;
 }
 log(R.reduce(mySubtract)(0)(numbers));
 
@@ -355,11 +354,11 @@ log(R.reduceRight(mySubtract)(0)(numbers));
 
 
 // map方法的callback函数， 参数（item, index, array），item当前项，index索引，array元数组
-log(['11','11','11','11'].map(parseInt));
+log(['11', '11', '11', '11'].map(parseInt));
 // parseInt函数参数可变，因此上述代码的执行结果是
 // [ 11, NaN, 3, 4]，原因parseInt(str,radix)，radis表示转换的进制基数，在2~36之间
 // 缺省是0，则使用10进制，其余非2~36之间的，一律返回NaN。可参看如下结果
-['11','11','11','11'].map(log);
+['11', '11', '11', '11'].map(log);
 // 11 0 [ '11', '11', '11', '11' ]
 // 11 1 [ '11', '11', '11', '11' ]
 // 11 2 [ '11', '11', '11', '11' ]
@@ -381,28 +380,28 @@ var ys = [2, 4, 6];
 log(R.reduceWhile(isOdd2, R.add, 111)(ys));
 
 var diff = (a, b) => {
-    return a - b;
+  return a - b;
 };
 
 var list3 = [4, 2, 6, 5, 7, 3];
 log(R.sort(diff)(list3));
 
 var alice = {
-    name: 'alice',
-    age: 40
+  name: 'alice',
+  age: 40
 };
 var bob = {
-    name: 'bob',
-    age: 30
+  name: 'bob',
+  age: 30
 };
 var clara = {
-    name: 'clara',
-    age: 40
+  name: 'clara',
+  age: 40
 }
 var people = [clara, bob, alice];
 var ageNameSort = R.sortWith([
-    R.descend(R.prop('age')),
-    R.ascend(R.prop('name'))
+  R.descend(R.prop('age')),
+  R.ascend(R.prop('name'))
 ])
 log(ageNameSort(people));
 
@@ -420,8 +419,8 @@ log(R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12], 5, 2]]]));
 log(R.groupWith(R.equals)([0, 1, 1, 2, 2, 3, 4, 5, 7, 7, 13, 8, 21]));
 
 var equalsE = (val) => {
-    return val < 5 ? 'A' :
-        val < 10 ? 'B' : 'C';
+  return val < 5 ? 'A' :
+    val < 10 ? 'B' : 'C';
 }
 log(R.groupBy(equalsE)([0, 1, 1, 2, 2, 3, 4, 5, 7, 7, 13, 8, 21]));
 
@@ -440,18 +439,18 @@ log(R.intersection(list3, list4));
 
 
 var buffaloSpringfield = [
-    {id: 456, name: 'Stephen Stills 1'},
-    {id: 824, name: 'Richie Furay'},
-    {id: 956, name: 'Dewey Martin'},
-    {id: 313, name: 'Bruce Palmer'},
-    {id: 177, name: 'Neil Young'}
+  {id: 456, name: 'Stephen Stills 1'},
+  {id: 824, name: 'Richie Furay'},
+  {id: 956, name: 'Dewey Martin'},
+  {id: 313, name: 'Bruce Palmer'},
+  {id: 177, name: 'Neil Young'}
 ];
 
 var csny = [
-    {id: 204, name: 'David Crosby'},
-    {id: 456, name: 'Stephen Stills 3'},
-    {id: 539, name: 'Graham Nash'},
-    {id: 177, name: 'Neil Young'}
+  {id: 204, name: 'David Crosby'},
+  {id: 456, name: 'Stephen Stills 3'},
+  {id: 539, name: 'Graham Nash'},
+  {id: 177, name: 'Neil Young'}
 ];
 
 // 这个问题有意思，无论buffaloSpringfield和csny谁在前，结果都是
@@ -476,7 +475,7 @@ log(R.symmetricDifference(list6)(list5));
 var eqA = R.eqBy(R.prop('a'));
 var l3 = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];
 var l4 = [{a: 3, b: 1}, {a: 4, b: 2}, {a: 5, b: 3}, {a: 6, b: 4},
-    {a: 1, b: 5}, {a: 2, b: 6}, {a: 5, b: 7}, {a: 3, b: 8}];
+  {a: 1, b: 5}, {a: 2, b: 6}, {a: 5, b: 7}, {a: 3, b: 8}];
 log(R.symmetricDifferenceWith(eqA, l3, l4));
 
 log(R.find(R.propEq('a', 2))(l3));
@@ -495,19 +494,19 @@ log(R.pluck('a')(l4));
 log(R.pluck(0)([[1, 2], [3, 4]]));
 
 var abby = {
-    name: 'Abby',
-    age: 7,
-    hair: 'blond',
-    grade: 2
+  name: 'Abby',
+  age: 7,
+  hair: 'blond',
+  grade: 2
 };
 var fred = {
-    name: 'Fred',
-    age: 12,
-    hair: 'blond',
-    grade: 7
+  name: 'Fred',
+  age: 12,
+  hair: 'blond',
+  grade: 7
 };
 var kids = [abby, fred];
-log(R.project(['name','grade'])(kids));
+log(R.project(['name', 'grade'])(kids));
 
 log(l3, l4);
 log(R.transpose([l3, l4]));
@@ -523,17 +522,17 @@ log(R.merge(l3, l4));
 log(R.fromPairs([['a', 1], ['b', 2], ['c', 3]]));
 
 var byGrade = R.groupBy((student) => {
-    var score = student.score;
-    return score < 65 ? 'F' :
-        score < 70 ? 'D' :
-            score < 80 ? 'C' :
-                score < 90 ? 'B' : 'A'
+  var score = student.score;
+  return score < 65 ? 'F' :
+    score < 70 ? 'D' :
+      score < 80 ? 'C' :
+        score < 90 ? 'B' : 'A'
 })
 
 var students = [
-    {name: 'Abby', score: 84},
-    {name: 'Eddy', score: 58},
-    {name: 'Jack', score: 69}
+  {name: 'Abby', score: 84},
+  {name: 'Eddy', score: 58},
+  {name: 'Jack', score: 69}
 ];
 log(byGrade(students));
 
@@ -542,19 +541,18 @@ var sortByFirstItem = R.sortBy(R.prop(0));
 log(sortByFirstItem([[-1, 1], [-2, 2], [-3, 3]]));
 
 var sortByNameCaseInsensitive = R.sortBy(
-    R.compose(R.toLower, R.prop('name'))
+  R.compose(R.toLower, R.prop('name'))
 );
 
 var sortByAge = R.sortBy(R.prop('age'))
 
 var people = [
-    {name: 'ALICE', age: 101},
-    {name: 'Bob', age: -10},
-    {name: 'clara', age: 314.159}
+  {name: 'ALICE', age: 101},
+  {name: 'Bob', age: -10},
+  {name: 'clara', age: 314.159}
 ]
 log(sortByNameCaseInsensitive(people));
 log(sortByAge(people));
-
 
 
 var hasName = R.has('name');
@@ -569,22 +567,22 @@ log(pointHas('x'));
 log(pointHas('y'));
 
 function Rectangle(width, height) {
-    this.width = width;
-    this.height = height;
+  this.width = width;
+  this.height = height;
 }
-Rectangle.prototype.area = function() {
-    return this.width * this.height;
+Rectangle.prototype.area = function () {
+  return this.width * this.height;
 }
 
 var square = new Rectangle(2, 2);
 log(R.hasIn('width')(square));
 log(R.hasIn('area')(square));
 
-var abby = { name: 'Abby', age: 7, hair: 'blond'};
-var fred = { name: 'Fred', age: 12, hair: 'brown'};
-var rusty = { name: 'Rusty', age: 10, hair: 'brown'};
-var alois = { name: 'Alois', age: 15, hair: 'surly'};
-var kids = [ abby, fred, rusty, alois];
+var abby = {name: 'Abby', age: 7, hair: 'blond'};
+var fred = {name: 'Fred', age: 12, hair: 'brown'};
+var rusty = {name: 'Rusty', age: 10, hair: 'brown'};
+var alois = {name: 'Alois', age: 15, hair: 'surly'};
+var kids = [abby, fred, rusty, alois];
 var hasBrownHair = R.propEq('hair', 'brown');
 log(R.filter(hasBrownHair)(kids));
 
@@ -597,10 +595,10 @@ log(pred({a: 1, b: 1}));
 
 
 var pred = R.where({
-    a: R.equals('foo'),
-    b: R.complement(R.equals('bar')),
-    x: R.gt(R.__, 10),
-    y: R.lt(R.__, 20)
+  a: R.equals('foo'),
+  b: R.complement(R.equals('bar')),
+  x: R.gt(R.__, 10),
+  y: R.lt(R.__, 20)
 });
 
 log(pred({a: 'foo', b: 'xxx', x: 11, y: 19}));
@@ -629,7 +627,7 @@ log(assocWithC('b'));
 log(assocWithC('c'));
 
 
-var obj = { a: 'sss', b: 'ttt', foo: 'bars'};
+var obj = {a: 'sss', b: 'ttt', foo: 'bars'};
 log(R.partition(R.contains('s'))(obj));
 log(R.pick(['a', 'b'])(obj));
 log(R.pick(['a', 'b', 'c', 'd'])(obj));
@@ -643,8 +641,8 @@ log(R.pickBy(isUpperCase)(obj2));
 
 log(R.keys(obj2));
 
-var F = function() {
-    this.x = 'X';
+var F = function () {
+  this.x = 'X';
 }
 F.prototype.y = 'Y';
 var f = new F();
@@ -655,9 +653,9 @@ log(R.values(obj2));
 log(R.valuesIn(f));
 
 var raceResultsByFirstName = {
-    first: 'alice',
-    second: 'jake',
-    third: 'alice'
+  first: 'alice',
+  second: 'jake',
+  third: 'alice'
 };
 
 log(R.invertObj(raceResultsByFirstName));
@@ -671,7 +669,7 @@ log(R.prop('x')({}));
 var double = x => x * 2;
 log(R.map(double)(obj2));
 
-var values = { x: 1, y: 2, z: 3 };
+var values = {x: 1, y: 2, z: 3};
 // 再一次证明 函数式变成不改变原数据
 var prependKeyAndDouble = (num, key, obj) => key + num * 2 + JSON.stringify(obj);
 log(R.mapObjIndexed(prependKeyAndDouble)(values));
@@ -688,36 +686,36 @@ log(resetToDefault({x: 5, y: 2}));
 
 
 log(R.mergeWith(R.concat, {
-    a: true, values: [10, 20]
+  a: true, values: [10, 20]
 }, {
-    b: true, values: [15, 35]
+  b: true, values: [15, 35]
 }));
 
-var o1 = { a: 1, b: 2, c: 3, d: 4 };
-var o2 = { a: 10, b: 20, c: 3, d: 40 };
+var o1 = {a: 1, b: 2, c: 3, d: 4};
+var o2 = {a: 10, b: 20, c: 3, d: 40};
 log(R.eqProps('a')(o1)(o2));
 log(R.eqProps('c')(o1)(o2));
 
 var tomato = {
-    firstName: ' Tomato ',
-    data: { elapsed: 100, remaing: 1400},
-    id: 123
+  firstName: ' Tomato ',
+  data: {elapsed: 100, remaing: 1400},
+  id: 123
 };
 
 var transformations = {
-    firstname: R.trim,
-    lastName: R.trim,
-    data: { elapsed: R.add(1), remaing: R.add(-1)}
+  firstname: R.trim,
+  lastName: R.trim,
+  data: {elapsed: R.add(1), remaing: R.add(-1)}
 };
 log(R.evolve(transformations)(tomato));
 
 log(R.path(['a', 'b'], {a: {b: 2}}));
 log(R.path('a.b'.split('.'), {a: {b: 2}}));
 
-var user1 = { address: { zipCode: 90210}};
-var user2 = { address: { zipCode: 55555}};
-var user3 = { address: { zipCode: 31000}};
-var user4 = { address: { zipCode: 11000}};
+var user1 = {address: {zipCode: 90210}};
+var user2 = {address: {zipCode: 55555}};
+var user3 = {address: {zipCode: 31000}};
+var user4 = {address: {zipCode: 11000}};
 var users = [user1, user2, user3, user4];
 var isFamous = R.pathEq(['address', 'zipCode'], 55555);
 log(R.filter(isFamous)(users));

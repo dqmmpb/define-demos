@@ -4,30 +4,31 @@
 
 
 class Point {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-    }
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
 
-    valueOf() {
-        return this.x + this.y;
-    }
-    // valueOf和toString同时存在，优先调用valueOf
-    toString() {
-        return '(' + this.x + ',' + this.y + ')';
-    }
+  valueOf() {
+    return this.x + this.y;
+  }
+
+  // valueOf和toString同时存在，优先调用valueOf
+  toString() {
+    return '(' + this.x + ',' + this.y + ')';
+  }
 }
 
 function* numbers() {
-    console.log('function start.');
+  console.log('function start.');
 
-    var v1 = yield new Point(1, 2);
-    console.log('v1 = ' + v1);
+  var v1 = yield new Point(1, 2);
+  console.log('v1 = ' + v1);
 
-    var v2 = yield 1;
-    console.log('v2 = ' + v2);
+  var v2 = yield 1;
+  console.log('v2 = ' + v2);
 
-    return 5;
+  return 5;
 }
 
 var nums = numbers();
@@ -46,32 +47,31 @@ console.log('toString() = ' + new Point(7, 8)); //=> toString() = 15
 // 隐式类型转换 有限调用valueOf
 
 function* objectEntries(obj) {
-    let propKeys = Reflect.ownKeys(obj);
+  let propKeys = Reflect.ownKeys(obj);
 
-    for(let propKey of propKeys) {
-        yield [propKey, obj[propKey]];
-    }
+  for (let propKey of propKeys) {
+    yield [propKey, obj[propKey]];
+  }
 }
 
-let jane = { first: 'Jane', last: 'Doe'};
+let jane = {first: 'Jane', last: 'Doe'};
 
-
-for(let [key, value] of objectEntries(jane)) {
-    console.log(`${key}: ${value}`);
+for (let [key, value] of objectEntries(jane)) {
+  console.log(`${key}: ${value}`);
 }
 
 function* objectEntries2() {
-    let propKeys = Object.keys(this);
+  let propKeys = Object.keys(this);
 
-    for(let propKey of propKeys) {
-        yield [propKey, this[propKey]];
-    }
+  for (let propKey of propKeys) {
+    yield [propKey, this[propKey]];
+  }
 }
 
-let jame = { first: 'Jame', last: 'Doe' };
+let jame = {first: 'Jame', last: 'Doe'};
 
 jame[Symbol.iterator] = objectEntries2;
 
-for(let [key, value] of jame) {
-    console.log(`${key}: ${value}`);
+for (let [key, value] of jame) {
+  console.log(`${key}: ${value}`);
 }

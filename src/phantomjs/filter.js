@@ -5,18 +5,18 @@
  */
 /*
 
-phantom.onError = function(msg, trace) {
-  var msgStack = ['PHANTOM ERROR: ' + msg];
-  if (trace && trace.length) {
-    msgStack.push('TRACE:');
-    trace.forEach(function(t) {
-      msgStack.push(' -> ' + (t.file || t.sourceURL) + ': ' + t.line + (t.function ? ' (in function ' + t.function +')' : ''));
-    });
-  }
-  console.error(msgStack.join('\n'));
-  //phantom.exit(1);
-};
-*/
+ phantom.onError = function(msg, trace) {
+ var msgStack = ['PHANTOM ERROR: ' + msg];
+ if (trace && trace.length) {
+ msgStack.push('TRACE:');
+ trace.forEach(function(t) {
+ msgStack.push(' -> ' + (t.file || t.sourceURL) + ': ' + t.line + (t.function ? ' (in function ' + t.function +')' : ''));
+ });
+ }
+ console.error(msgStack.join('\n'));
+ //phantom.exit(1);
+ };
+ */
 
 
 var page = require('webpage').create();
@@ -30,7 +30,7 @@ var regexp_css = /http(s)?:\/\/.+?\.css$/gi;
  * 这是因为包含g修饰符的RegExp.test()方法，第一次从位置0开始查找，可以匹配；第二次的查找位置就不是0了，说以就不能匹配了。
  * 解决方式挺简单：每次都让test从第0个位置开始匹配就可以了
  */
-page.onResourceRequested = function(requestData, request) {
+page.onResourceRequested = function (requestData, request) {
   var url = requestData['url'];
   console.log(url);
   console.log('1: ' + regexp_css.test(url));
@@ -40,17 +40,17 @@ page.onResourceRequested = function(requestData, request) {
 
   // regexp_css.lastIndex = 0;
   // console.log('3: ' + regexp_css.test(url));
-  if(regexp_css.test(url)) {
+  if (regexp_css.test(url)) {
     console.log('Skiping', requestData['url']);
     request.abort();
   }
 };
 
 // 打开网址
-page.open(address, function(status) {
+page.open(address, function (status) {
   console.log('Status: ' + status);
 
-  if(status !== 'success') {
+  if (status !== 'success') {
     console.log('FAIL to load the address');
   } else {
     console.log('success');

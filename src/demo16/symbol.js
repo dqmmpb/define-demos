@@ -3,7 +3,7 @@
  */
 
 var log4js = require('log4js');
-var {config} = require('./config');
+var {config} = require('./config/index');
 
 log4js.configure(config);
 const logger = log4js.getLogger();

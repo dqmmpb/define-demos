@@ -7,7 +7,56 @@ if( typeof window === "undefined" )
 if( typeof navigator === "undefined" )
   navigator = {};
 
-var ursa = require('ursa')
+var ursa = require('ursa');
+
+/**
+ * 去掉pem格式，提取body
+ * @param pem
+ * @param pemHeader
+ * @returns {*}
+ */
+ursa.pemtoraw = function (pem, pemHeader) {
+  var pemBody = pem;
+  if (pemBody.indexOf("-----BEGIN ") == -1)
+    throw "can't find PEM header: " + pemHeader;
+
+  if (pemHeader !== undefined) {
+    pemBody = pemBody.replace("-----BEGIN " + pemHeader + "-----", "");
+    pemBody = pemBody.replace("-----END " + pemHeader + "-----", "");
+  } else {
+    pemBody = pemBody.replace(/-----BEGIN [^-]+-----/, '');
+    pemBody = pemBody.replace(/-----END [^-]+-----/, '');
+  }
+  // 去掉换行
+  pemBody = pemBody.trim();
+  pemBody = pemBody.replace(/[\r\n]*/g, "");
+  return pemBody;
+};
+
+/**
+ * 生成pem格式
+ * @param pem
+ * @param pemHeader
+ * @returns {*}
+ */
+ursa.rawtopem = function (raw, pemHeader) {
+  var pemBody = raw;
+  return "-----BEGIN " + pemHeader + "-----\r\n" +
+    pemBody +
+    "\r\n-----END " + pemHeader + "-----\r\n";
+};
+
+/**
+ * 去掉pem格式，提取body
+ * @param format
+ * @returns {*}
+ */
+ursa.getKey = function (key, isPub) {
+  if(isPub)
+    return this.pemtoraw(key.toPublicPem('utf8'));
+  else
+    return this.pemtoraw(key.toPrivatePem('utf8'));
+};
 
 var PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCsrxY7zwnU8/u9a5KClEjEHDiGyMXYBJUr+il5Pw9KsVqFuhydjV7EiMBTykQ4XuZdaBWqlA7KMOio9xsL8nuMZOSu3fsmuSvMjt6gX/7kd3TQO2Tbjs8sFokJ3LPYqrhWhHCxFe52USMiKEanKbSZch1uPF1+pQHfV4zo8Mu6FQIDAQAB";
 var PRIVATE_KEY = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKyvFjvPCdTz+71rkoKUSMQcOIbIxdgElSv6KXk/D0qxWoW6HJ2NXsSIwFPKRDhe5l1oFaqUDsow6Kj3Gwvye4xk5K7d+ya5K8yO3qBf/uR3dNA7ZNuOzywWiQncs9iquFaEcLEV7nZRIyIoRqcptJlyHW48XX6lAd9XjOjwy7oVAgMBAAECgYEAk2mb506kq//j5R3RolsHizI0Jwt5qSCwXyxc/z4PxcmE5yerievG/Kto056VgjGxIgfahxWBUqVR1/uqQRas1A2j5/de8Y+LcpNrEuwF8YgOWmK3EAty0pgHQ1ezYSaxJ2AMBF427UrzMpGrB77UEzGE07GxbbC/sK/u66h0A/kCQQD89Q3OmWV8Gxie8XkWHeiUhseo3kZ9AYy7tRpsEkTkkWZAK2znphdHl35yDk0Cqu4uCe3usz6TfRlWu+3WK5k3AkEArsLXtUUt1IVeM0Z0Oxz8AWMb4v1lJiS4BhotZs7fyZ6DnMd+LIdfqQCLl9j3hCzdxEqIqmcuL2uGy1OYdfz9EwJAF+lGM9hWOoQJMMUcsBWFrbyL1Q+l1B04Y2n8JGkZsA16f+ha9A7ENpVAc6Gcb/seZqWzoxO4f5KcuZEsK0mVwwJAIp4qCJhZib2ZeWK9Z3BIYyX0wjQbs0CWy26oC7NzFQc3XvkNf1iZlGqtPDkYXrBchaOWCttBhNcx7ljy3HxuzQJAQxcxqCOUmLJah+Mtjb+aJQ2L6Lg3mBA62WNGxXDzpX2pAcJVZ7bNcsBq41rOpQEtQ8bEyj/Nfxxsxy/F57xuCQ==";
@@ -82,8 +131,8 @@ function test() {
 
   var prvKeyObj = keyPair.prvKeyObj;
   var pubKeyObj = keyPair.pubKeyObj;
-  var privateKey = prvKeyObj.toPrivatePem('utf8');
-  var publicKey = pubKeyObj.toPublicPem('utf8');
+  var privateKey = ursa.getKey(prvKeyObj, false);
+  var publicKey = ursa.getKey(pubKeyObj, true);
   // 问题，转换的Pem为pkcs1格式，无法执行pkcs8
   console.log(privateKey);
   console.log(publicKey);

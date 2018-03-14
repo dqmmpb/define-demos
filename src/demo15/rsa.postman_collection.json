@@ -12,14 +12,14 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "b63090a7-cbd8-4d98-b8fa-741f9e172756",
+						"id": "d00b0482-e98e-4e17-8b27-cc25ed198f5f",
 						"type": "text/javascript",
 						"exec": [
 							"",
 							"var md5Password = CryptoJS.MD5(\"123\").toString().toUpperCase();",
 							"console.log(md5Password);",
-							"var te = [1, 2, 3, 4];",
 							"",
+							"var te = [1, 2, 3, 4];",
 							"var _ = require('lodash');",
 							"var de = _.reverse(te);",
 							"console.log(de);",
@@ -90,7 +90,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "03926b73-be50-44c7-abcd-6e95502957b9",
+						"id": "eb852b03-5b76-4cc4-87af-87195b2e87bd",
 						"type": "text/javascript",
 						"exec": [
 							"var CLIENT_PUBLICKEY = \"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCPrkLZe1AxVnhckFoF/c5BbuW86/LQE5hSynrGq2Dho9SaGqEu8QpZfhqk+w6OQaM8cdiAbakty7sjRzJ47JlGzoxHlurYKfxvo1T/3N2gXFa4H0ZpZXlG+uetyTMl06ndFl9Ji9GvxVzWW2B/RRB5tsEEkdoET3AG4V5bh1VgrQIDAQAB\";",
@@ -223,8 +223,8 @@
 							"        // 加密后消息",
 							"        console.log('密文：', encryptMessage);",
 							"        ",
-							"        postman.setGlobalVariable('encryptMessage', encryptMessage);",
-							"        postman.setGlobalVariable('cPub', CLIENT_PUBLICKEY);",
+							"        postman.setEnvironmentVariable('encryptMessage', encryptMessage);",
+							"        postman.setEnvironmentVariable('cPub', CLIENT_PUBLICKEY);",
 							"        ",
 							"    });  ",
 							"    ",
@@ -427,7 +427,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "11612fcc-53d2-41bc-afe9-7f3920d53722",
+						"id": "3de9427a-23a8-48c9-b94d-9c03656ee89b",
 						"type": "text/javascript",
 						"exec": [
 							"var CLIENT_PUBLICKEY = \"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCPrkLZe1AxVnhckFoF/c5BbuW86/LQE5hSynrGq2Dho9SaGqEu8QpZfhqk+w6OQaM8cdiAbakty7sjRzJ47JlGzoxHlurYKfxvo1T/3N2gXFa4H0ZpZXlG+uetyTMl06ndFl9Ji9GvxVzWW2B/RRB5tsEEkdoET3AG4V5bh1VgrQIDAQAB\";",
@@ -456,8 +456,6 @@
 							"        var jsencrypt = res.stream.toString();",
 							"        // 执行jsencrypt，加载第三方库",
 							"        eval(jsencrypt);",
-							"        ",
-							"        console.log(window);",
 							"        ",
 							"        /**",
 							"        * 加密",
@@ -510,19 +508,13 @@
 							"        // 加密后消息",
 							"        console.log('密文：', encryptMessage);",
 							"        ",
-							"        postman.setGlobalVariable('encryptMessage', encryptMessage);",
-							"        postman.setGlobalVariable('cPub', CLIENT_PUBLICKEY);",
+							"        postman.setEnvironmentVariable('encryptMessage', encryptMessage);",
+							"        postman.setEnvironmentVariable('cPub', CLIENT_PUBLICKEY);",
 							"        ",
 							"    });  ",
 							"    ",
 							"});",
-							"",
-							"",
-							"pm.globals.unset(\"variable_key\");",
-							"",
-							"pm.globals.unset(\"variable_key\");",
-							"",
-							"pm.globals.unset(\"variable_key\");"
+							""
 						]
 					}
 				},
@@ -670,7 +662,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "66b192d6-04f9-42fe-bb30-50892ca5ab34",
+						"id": "e5cd2264-6350-4eb1-ab78-d5a6f38225f9",
 						"type": "text/javascript",
 						"exec": [
 							"var BASE64 = 'base64';",
@@ -698,7 +690,7 @@
 							"var _thizpm = this;",
 							"",
 							"if( typeof window === \"undefined\" )",
-							"  window = {};",
+							"  window = { hello: 123};",
 							"if( typeof navigator === \"undefined\" )",
 							"  navigator = {};",
 							"",
@@ -710,14 +702,15 @@
 							"    console.log('-------------------- 华丽的分割线 请求前 -----------------------');",
 							"",
 							"    pm.sendRequest({",
-							"        url: 'http://ok2471oek.bkt.clouddn.com/rsa/node-rsa/rsa-bundle.js',",
+							"        url: 'http://localhost:8080/rsa/js/lib/node-rsa/node-rsa-bundle.js',",
 							"        method: \"GET\",",
 							"    }, function (err, res) {",
 							"        var nodeRsa = res.stream.toString();",
+							"        ",
 							"        // 执行nodeRsa，加载第三方库",
 							"        eval(nodeRsa);",
 							"        ",
-							"        console.log(_thizpm);",
+							"        var NodeRSA = require('node-rsa');",
 							"        ",
 							"        var message = 'Java中文';",
 							"        // 加密前消息",
@@ -729,8 +722,8 @@
 							"        console.log('密文：', encryptMessage);",
 							"        ",
 							"        // 设置变量",
-							"        postman.setGlobalVariable('encryptMessage', encryptMessage);",
-							"        postman.setGlobalVariable('cPub', CLIENT_PUBLICKEY); ",
+							"        postman.setEnvironmentVariable('encryptMessage', encryptMessage);",
+							"        postman.setEnvironmentVariable('cPub', CLIENT_PUBLICKEY); ",
 							"",
 							"    });",
 							"});",
@@ -741,7 +734,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "bcd91ee0-815d-40fa-9ef3-81af1cd63c13",
+						"id": "2959683f-7cf4-41aa-8608-9ed76a40060c",
 						"type": "text/javascript",
 						"exec": [
 							"var BASE64 = 'base64';",
@@ -777,12 +770,14 @@
 							"    pm.response.to.have.status(200);",
 							"   ",
 							"     pm.sendRequest({",
-							"        url: 'http://ok2471oek.bkt.clouddn.com/rsa/node-rsa/node-rsa.js',",
+							"        url: 'http://localhost:8080/rsa/js/lib/node-rsa/node-rsa-bundle.js',",
 							"        method: \"GET\",",
 							"    }, function (err, res) {",
 							"        var nodeRsa = res.stream.toString();",
 							"        // 执行nodeRsa，加载第三方库",
 							"        eval(nodeRsa);",
+							"        ",
+							"        var NodeRSA = require('node-rsa');",
 							"        ",
 							"        var message = pm.response.json().result.message;",
 							"        // 解密前消息",
@@ -842,6 +837,483 @@
 						"api",
 						"v1",
 						"send"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "rsa pre-request脚本测试 node-forge",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9978dfa8-2a92-4bc5-9b21-bd974f96121f",
+						"type": "text/javascript",
+						"exec": [
+							"var BASE64 = 'base64';",
+							"var UTF8 = 'utf8';",
+							"",
+							"",
+							"var CLIENT_PUBLICKEY = \"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCPrkLZe1AxVnhckFoF/c5BbuW86/LQE5hSynrGq2Dho9SaGqEu8QpZfhqk+w6OQaM8cdiAbakty7sjRzJ47JlGzoxHlurYKfxvo1T/3N2gXFa4H0ZpZXlG+uetyTMl06ndFl9Ji9GvxVzWW2B/RRB5tsEEkdoET3AG4V5bh1VgrQIDAQAB\";",
+							"var CLIENT_PRIVATEKEY = \"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAI+uQtl7UDFWeFyQWgX9zkFu5bzr8tATmFLKesarYOGj1JoaoS7xCll+GqT7Do5Bozxx2IBtqS3LuyNHMnjsmUbOjEeW6tgp/G+jVP/c3aBcVrgfRmlleUb6563JMyXTqd0WX0mL0a/FXNZbYH9FEHm2wQSR2gRPcAbhXluHVWCtAgMBAAECgYBBfyukHk1xIDzf3UHcZ1WFiHsbwuc+KSCP5RNQy0DvuxIoaak+T8zq/MxCltuMx6kU3cTWzqaHZM7bBxKgAyLfamrTcFyh4rUrkMzcBEENFkRng7//Px7vzwcUocygA4KGh6eGkef6/33yhgF4wUofUWgW2qyDNQm24OitLti7oQJBAPjOijg1gl6ytRrwdqPq+S4t7Y3ZHFjiis+7yhgZMZoS2JFeVtaQbbPfXzQ4eMExGEH2/lbOuMrsrEkxRUUNGfUCQQCT1apsFYDZwIcGSQ6DStEj4X+ukw5h/q2VnfI8B2u4EqbBbpzZ5DL7lo4yDDH85xifmLl0P3SrhSDeOSa/9ODZAkEA155OZHXi3GRs1MLNXjK07VM6CnK7wT/aYjpw4j97H/XzHs+t29Zga8BJhjzmUS5Vwlzlf584wAspJ2j+id/XvQJARDWLYj8xqkaYhh/jIFS+1k1O+h9DvZciRCwR/fx2iQGiCxGcMTSHCWnXxeO2lLeTtt9ige5dSF4uYhoAdQTpUQJBANoP3JGufyUusSp7UiRX/kUg1K2rfkrzg5MLNpPuKljs3mI/xGopddBogFNomZCbssGpUM+VFvNwnhZQByx58O4=\";",
+							"var SERVER_PUBLICKEY = \"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCsrxY7zwnU8/u9a5KClEjEHDiGyMXYBJUr+il5Pw9KsVqFuhydjV7EiMBTykQ4XuZdaBWqlA7KMOio9xsL8nuMZOSu3fsmuSvMjt6gX/7kd3TQO2Tbjs8sFokJ3LPYqrhWhHCxFe52USMiKEanKbSZch1uPF1+pQHfV4zo8Mu6FQIDAQAB\";",
+							"var SERVER_PRIVATEKEY = \"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKyvFjvPCdTz+71rkoKUSMQcOIbIxdgElSv6KXk/D0qxWoW6HJ2NXsSIwFPKRDhe5l1oFaqUDsow6Kj3Gwvye4xk5K7d+ya5K8yO3qBf/uR3dNA7ZNuOzywWiQncs9iquFaEcLEV7nZRIyIoRqcptJlyHW48XX6lAd9XjOjwy7oVAgMBAAECgYEAk2mb506kq//j5R3RolsHizI0Jwt5qSCwXyxc/z4PxcmE5yerievG/Kto056VgjGxIgfahxWBUqVR1/uqQRas1A2j5/de8Y+LcpNrEuwF8YgOWmK3EAty0pgHQ1ezYSaxJ2AMBF427UrzMpGrB77UEzGE07GxbbC/sK/u66h0A/kCQQD89Q3OmWV8Gxie8XkWHeiUhseo3kZ9AYy7tRpsEkTkkWZAK2znphdHl35yDk0Cqu4uCe3usz6TfRlWu+3WK5k3AkEArsLXtUUt1IVeM0Z0Oxz8AWMb4v1lJiS4BhotZs7fyZ6DnMd+LIdfqQCLl9j3hCzdxEqIqmcuL2uGy1OYdfz9EwJAF+lGM9hWOoQJMMUcsBWFrbyL1Q+l1B04Y2n8JGkZsA16f+ha9A7ENpVAc6Gcb/seZqWzoxO4f5KcuZEsK0mVwwJAIp4qCJhZib2ZeWK9Z3BIYyX0wjQbs0CWy26oC7NzFQc3XvkNf1iZlGqtPDkYXrBchaOWCttBhNcx7ljy3HxuzQJAQxcxqCOUmLJah+Mtjb+aJQ2L6Lg3mBA62WNGxXDzpX2pAcJVZ7bNcsBq41rOpQEtQ8bEyj/Nfxxsxy/F57xuCQ==\";",
+							"",
+							"",
+							"if( typeof self === \"undefined\" )",
+							"  var self = {};",
+							"if( typeof window === \"undefined\" )",
+							"  window = {};",
+							"if( typeof navigator === \"undefined\" )",
+							"  navigator = {};",
+							"",
+							"pm.sendRequest({",
+							"    url: 'http://localhost:8080/rsa/rest/api/v1/init',",
+							"    method: \"POST\",",
+							"}, function (err, res) {",
+							"    console.log(res.json());",
+							"    console.log('-------------------- 华丽的分割线 请求前 -----------------------');",
+							"",
+							"    pm.sendRequest({",
+							"        url: 'http://localhost:8080/rsa/js/lib/forge.min.js',",
+							"        method: \"GET\",",
+							"    }, function (err, res) {",
+							"        var nodeForge = res.stream.toString();",
+							"        ",
+							"        // 执行nodeForge，加载第三方库",
+							"        eval(nodeForge);",
+							"        ",
+							"        var forge = self.forge;",
+							"        ",
+							"        var pki = forge.pki;",
+							"        var util = forge.util;",
+							"        var rsa = forge.rsa;",
+							"        var pem = forge.pem;",
+							"        ",
+							"        /**",
+							"         * 生成pem格式",
+							"         * @param pem",
+							"         * @param pemHeader",
+							"         * @returns {*}",
+							"         */",
+							"        function rawtopem(raw, pemHeader) {",
+							"          var pemBody = raw;",
+							"          return \"-----BEGIN \" + pemHeader + \"-----\\r\\n\" +",
+							"            pemBody +",
+							"            \"\\r\\n-----END \" + pemHeader + \"-----\\r\\n\";",
+							"        }",
+							"        ",
+							"        function privateKeyRawtopem(raw) {",
+							"          return rawtopem(raw, \"PRIVATE KEY\");",
+							"        }",
+							"        ",
+							"        function publicKeyRawtopem(raw) {",
+							"          return rawtopem(raw, \"PUBLIC KEY\");",
+							"        }",
+							"        ",
+							"",
+							"        /**",
+							"        * 加密",
+							"        * @param text 待加密的字符串",
+							"        * @param key 加密的key",
+							"        * @param isPub 是否使用publicKey加密，默认false",
+							"        * @returns {*}",
+							"        */",
+							"        function encrypt(text, key, isPub) {",
+							"            // Encrypt with key...",
+							"            var encryptKey = isPub ? pki.publicKeyFromPem(publicKeyRawtopem(key)) : privateKeyPKCS1ToPKCS8(pki.privateKeyFromPem(privateKeyRawtopem(key)));",
+							"            var buffer = util.createBuffer(util.encodeUtf8(text));",
+							"            var binaryString = buffer.getBytes();",
+							"            if(isPub) {",
+							"              return util.encode64(encryptKey.encrypt(binaryString));",
+							"            } else {",
+							"              return util.encode64(encryptKey.encrypt(binaryString));",
+							"            }",
+							"        }",
+							"        ",
+							"        /**",
+							"        * 解密",
+							"        * @param text 待解密的字符串",
+							"        * @param key 解密的key",
+							"        * @param isPub 是否使用publicKey解密，默认false",
+							"        * @returns {*}",
+							"        */",
+							"        function decrypt(text, key, isPub) {",
+							"            // Decrypt with key...",
+							"            var decryptKey = isPub ? pki.publicKeyFromPem(publicKeyRawtopem(key)) : privateKeyPKCS1ToPKCS8(pki.privateKeyFromPem(privateKeyRawtopem(key)));",
+							"            var binaryString = util.decode64(text);",
+							"            if(isPub) {",
+							"              return util.decodeUtf8(decryptKey.decrypt(binaryString));",
+							"            } else {",
+							"              return util.decodeUtf8(decryptKey.decrypt(binaryString));",
+							"            }",
+							"        }",
+							"        ",
+							"        /**",
+							"        * 将PKCS#1转换为PKCS#8",
+							"        * @param prvKeyObj",
+							"        * @returns {the|*}",
+							"        */",
+							"        function privateKeyPKCS1ToPKCS8(prvKeyObj) {",
+							"            // 生成pkcs#8格式的pem",
+							"            const rsaPrivateKey = pki.privateKeyToAsn1(prvKeyObj);",
+							"            const privateKeyInfo = pki.wrapRsaPrivateKey(rsaPrivateKey);",
+							"            const privateKeyPem = pki.privateKeyInfoToPem(privateKeyInfo);",
+							"            return pki.privateKeyFromPem(privateKeyPem);",
+							"        }",
+							"        ",
+							"        /**",
+							"        * 提取pem中的body",
+							"        * @param Pem",
+							"        * @returns {the|*}",
+							"        */",
+							"        function bodyFromPem(Pem) {",
+							"            return util.encode64(pem.decode(Pem)[0].body);",
+							"        }",
+							"        ",
+							"        var message = 'Java中文';",
+							"        // 加密前消息",
+							"        console.log('加密前：', message);",
+							"        // 加密",
+							"        var sPub = publicKeyRawtopem(SERVER_PUBLICKEY);",
+							"        var encryptMessage = encrypt(message, sPub, true);",
+							"        // 加密后消息",
+							"        console.log('密文：', encryptMessage);",
+							"        ",
+							"        // 设置变量",
+							"        postman.setEnvironmentVariable('encryptMessage', encryptMessage);",
+							"        postman.setEnvironmentVariable('cPub', CLIENT_PUBLICKEY); ",
+							"",
+							"    });",
+							"});",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "adb6b0f5-47a8-4e27-9edc-ae4746a8de8a",
+						"type": "text/javascript",
+						"exec": [
+							"var BASE64 = 'base64';",
+							"var UTF8 = 'utf8';",
+							"",
+							"",
+							"var CLIENT_PUBLICKEY = \"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCPrkLZe1AxVnhckFoF/c5BbuW86/LQE5hSynrGq2Dho9SaGqEu8QpZfhqk+w6OQaM8cdiAbakty7sjRzJ47JlGzoxHlurYKfxvo1T/3N2gXFa4H0ZpZXlG+uetyTMl06ndFl9Ji9GvxVzWW2B/RRB5tsEEkdoET3AG4V5bh1VgrQIDAQAB\";",
+							"var CLIENT_PRIVATEKEY = \"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAI+uQtl7UDFWeFyQWgX9zkFu5bzr8tATmFLKesarYOGj1JoaoS7xCll+GqT7Do5Bozxx2IBtqS3LuyNHMnjsmUbOjEeW6tgp/G+jVP/c3aBcVrgfRmlleUb6563JMyXTqd0WX0mL0a/FXNZbYH9FEHm2wQSR2gRPcAbhXluHVWCtAgMBAAECgYBBfyukHk1xIDzf3UHcZ1WFiHsbwuc+KSCP5RNQy0DvuxIoaak+T8zq/MxCltuMx6kU3cTWzqaHZM7bBxKgAyLfamrTcFyh4rUrkMzcBEENFkRng7//Px7vzwcUocygA4KGh6eGkef6/33yhgF4wUofUWgW2qyDNQm24OitLti7oQJBAPjOijg1gl6ytRrwdqPq+S4t7Y3ZHFjiis+7yhgZMZoS2JFeVtaQbbPfXzQ4eMExGEH2/lbOuMrsrEkxRUUNGfUCQQCT1apsFYDZwIcGSQ6DStEj4X+ukw5h/q2VnfI8B2u4EqbBbpzZ5DL7lo4yDDH85xifmLl0P3SrhSDeOSa/9ODZAkEA155OZHXi3GRs1MLNXjK07VM6CnK7wT/aYjpw4j97H/XzHs+t29Zga8BJhjzmUS5Vwlzlf584wAspJ2j+id/XvQJARDWLYj8xqkaYhh/jIFS+1k1O+h9DvZciRCwR/fx2iQGiCxGcMTSHCWnXxeO2lLeTtt9ige5dSF4uYhoAdQTpUQJBANoP3JGufyUusSp7UiRX/kUg1K2rfkrzg5MLNpPuKljs3mI/xGopddBogFNomZCbssGpUM+VFvNwnhZQByx58O4=\";",
+							"var SERVER_PUBLICKEY = \"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCsrxY7zwnU8/u9a5KClEjEHDiGyMXYBJUr+il5Pw9KsVqFuhydjV7EiMBTykQ4XuZdaBWqlA7KMOio9xsL8nuMZOSu3fsmuSvMjt6gX/7kd3TQO2Tbjs8sFokJ3LPYqrhWhHCxFe52USMiKEanKbSZch1uPF1+pQHfV4zo8Mu6FQIDAQAB\";",
+							"var SERVER_PRIVATEKEY = \"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKyvFjvPCdTz+71rkoKUSMQcOIbIxdgElSv6KXk/D0qxWoW6HJ2NXsSIwFPKRDhe5l1oFaqUDsow6Kj3Gwvye4xk5K7d+ya5K8yO3qBf/uR3dNA7ZNuOzywWiQncs9iquFaEcLEV7nZRIyIoRqcptJlyHW48XX6lAd9XjOjwy7oVAgMBAAECgYEAk2mb506kq//j5R3RolsHizI0Jwt5qSCwXyxc/z4PxcmE5yerievG/Kto056VgjGxIgfahxWBUqVR1/uqQRas1A2j5/de8Y+LcpNrEuwF8YgOWmK3EAty0pgHQ1ezYSaxJ2AMBF427UrzMpGrB77UEzGE07GxbbC/sK/u66h0A/kCQQD89Q3OmWV8Gxie8XkWHeiUhseo3kZ9AYy7tRpsEkTkkWZAK2znphdHl35yDk0Cqu4uCe3usz6TfRlWu+3WK5k3AkEArsLXtUUt1IVeM0Z0Oxz8AWMb4v1lJiS4BhotZs7fyZ6DnMd+LIdfqQCLl9j3hCzdxEqIqmcuL2uGy1OYdfz9EwJAF+lGM9hWOoQJMMUcsBWFrbyL1Q+l1B04Y2n8JGkZsA16f+ha9A7ENpVAc6Gcb/seZqWzoxO4f5KcuZEsK0mVwwJAIp4qCJhZib2ZeWK9Z3BIYyX0wjQbs0CWy26oC7NzFQc3XvkNf1iZlGqtPDkYXrBchaOWCttBhNcx7ljy3HxuzQJAQxcxqCOUmLJah+Mtjb+aJQ2L6Lg3mBA62WNGxXDzpX2pAcJVZ7bNcsBq41rOpQEtQ8bEyj/Nfxxsxy/F57xuCQ==\";",
+							"",
+							"",
+							"if( typeof self === \"undefined\" )",
+							"  var self = {};",
+							"if( typeof window === \"undefined\" )",
+							"  window = {};",
+							"if( typeof navigator === \"undefined\" )",
+							"  navigator = {};",
+							"",
+							"pm.test(\"response is ok\", function () {",
+							"    console.log('-------------------- 华丽的分割线 请求后 -----------------------');",
+							"    pm.response.to.have.status(200);",
+							"   ",
+							"    pm.sendRequest({",
+							"        url: 'http://localhost:8080/rsa/js/lib/forge.min.js',",
+							"        method: \"GET\",",
+							"    }, function (err, res) {",
+							"        var nodeForge = res.stream.toString();",
+							"        ",
+							"        // 执行nodeForge，加载第三方库",
+							"        eval(nodeForge);",
+							"        ",
+							"        var forge = self.forge;",
+							"        ",
+							"        var pki = forge.pki;",
+							"        var util = forge.util;",
+							"        var rsa = forge.rsa;",
+							"        var pem = forge.pem;",
+							"        ",
+							"        /**",
+							"         * 生成pem格式",
+							"         * @param pem",
+							"         * @param pemHeader",
+							"         * @returns {*}",
+							"         */",
+							"        function rawtopem(raw, pemHeader) {",
+							"          var pemBody = raw;",
+							"          return \"-----BEGIN \" + pemHeader + \"-----\\r\\n\" +",
+							"            pemBody +",
+							"            \"\\r\\n-----END \" + pemHeader + \"-----\\r\\n\";",
+							"        }",
+							"        ",
+							"        function privateKeyRawtopem(raw) {",
+							"          return rawtopem(raw, \"PRIVATE KEY\");",
+							"        }",
+							"        ",
+							"        function publicKeyRawtopem(raw) {",
+							"          return rawtopem(raw, \"PUBLIC KEY\");",
+							"        }",
+							"        ",
+							"",
+							"        /**",
+							"        * 加密",
+							"        * @param text 待加密的字符串",
+							"        * @param key 加密的key",
+							"        * @param isPub 是否使用publicKey加密，默认false",
+							"        * @returns {*}",
+							"        */",
+							"        function encrypt(text, key, isPub) {",
+							"            // Encrypt with key...",
+							"            var encryptKey = isPub ? pki.publicKeyFromPem(publicKeyRawtopem(key)) : privateKeyPKCS1ToPKCS8(pki.privateKeyFromPem(privateKeyRawtopem(key)));",
+							"            var buffer = util.createBuffer(util.encodeUtf8(text));",
+							"            var binaryString = buffer.getBytes();",
+							"            if(isPub) {",
+							"              return util.encode64(encryptKey.encrypt(binaryString));",
+							"            } else {",
+							"              return util.encode64(encryptKey.encrypt(binaryString));",
+							"            }",
+							"        }",
+							"        ",
+							"        /**",
+							"        * 解密",
+							"        * @param text 待解密的字符串",
+							"        * @param key 解密的key",
+							"        * @param isPub 是否使用publicKey解密，默认false",
+							"        * @returns {*}",
+							"        */",
+							"        function decrypt(text, key, isPub) {",
+							"            // Decrypt with key...",
+							"            var decryptKey = isPub ? pki.publicKeyFromPem(publicKeyRawtopem(key)) : privateKeyPKCS1ToPKCS8(pki.privateKeyFromPem(privateKeyRawtopem(key)));",
+							"            var binaryString = util.decode64(text);",
+							"            if(isPub) {",
+							"              return util.decodeUtf8(decryptKey.decrypt(binaryString));",
+							"            } else {",
+							"              return util.decodeUtf8(decryptKey.decrypt(binaryString));",
+							"            }",
+							"        }",
+							"        ",
+							"        /**",
+							"        * 将PKCS#1转换为PKCS#8",
+							"        * @param prvKeyObj",
+							"        * @returns {the|*}",
+							"        */",
+							"        function privateKeyPKCS1ToPKCS8(prvKeyObj) {",
+							"            // 生成pkcs#8格式的pem",
+							"            const rsaPrivateKey = pki.privateKeyToAsn1(prvKeyObj);",
+							"            const privateKeyInfo = pki.wrapRsaPrivateKey(rsaPrivateKey);",
+							"            const privateKeyPem = pki.privateKeyInfoToPem(privateKeyInfo);",
+							"            return pki.privateKeyFromPem(privateKeyPem);",
+							"        }",
+							"        ",
+							"        /**",
+							"        * 提取pem中的body",
+							"        * @param Pem",
+							"        * @returns {the|*}",
+							"        */",
+							"        function bodyFromPem(Pem) {",
+							"            return util.encode64(pem.decode(Pem)[0].body);",
+							"        }",
+							"        ",
+							"        var message = pm.response.json().result.message;",
+							"        // 解密前消息",
+							"        console.log('密文：', message);",
+							"        // 解密",
+							"        var cPrv = privateKeyRawtopem(CLIENT_PRIVATEKEY);",
+							"        var decryptMessage = decrypt(message, cPrv, false);",
+							"        // 解密后消息",
+							"        console.log('解密后：', decryptMessage);",
+							"        ",
+							"        var expected = '服务端处理成功，客户端发送过来的内容为：Java中文';",
+							"        ",
+							"        pm.expect(decryptMessage).to.equal(expected);",
+							"",
+							"    });",
+							"    ",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "message",
+							"value": "{{encryptMessage}}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "cPub",
+							"value": "{{cPub}}",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/rsa/rest/api/v1/send",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rsa",
+						"rest",
+						"api",
+						"v1",
+						"send"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "rsa pre-request脚本测试json",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "28b093ad-e9c7-42ef-98b6-6e7b0374a8e5",
+						"type": "text/javascript",
+						"exec": [
+							"var params = JSON.parse(request.data);",
+							"var raw_username = params['raw_username'];",
+							"var raw_password =params['raw_password'];",
+							"",
+							"var username = raw_username;",
+							"var password = CryptoJS.MD5(raw_password);",
+							"",
+							"postman.setEnvironmentVariable('username', username);",
+							"postman.setEnvironmentVariable('password', password);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "753d86a9-6392-4cdd-ad1c-2d2643ff4404",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"raw_username\": \"13819493700\",\n\t\"raw_password\": \"123456\",\n\t\"username\": \"{{username}}\",\n\t\"password\": \"{{password}}\"\n}"
+				},
+				"url": {
+					"raw": "http://www.baidu.com",
+					"protocol": "http",
+					"host": [
+						"www",
+						"baidu",
+						"com"
+					]
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "rsa pre-request脚本测试form",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "673f0d95-2fb5-43f0-9820-634c98bf86f1",
+						"type": "text/javascript",
+						"exec": [
+							"var params = request.data;",
+							"var raw_username = params['raw_username'];",
+							"var raw_password =params['raw_password'];",
+							"",
+							"var username = raw_username;",
+							"var password = CryptoJS.MD5(raw_password);",
+							"",
+							"postman.setEnvironmentVariable('username', username);",
+							"postman.setEnvironmentVariable('password', password);"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "753d86a9-6392-4cdd-ad1c-2d2643ff4404",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "raw_username",
+							"value": "13819493700",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "raw_password",
+							"value": "123456",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://www.baidu.com",
+					"protocol": "http",
+					"host": [
+						"www",
+						"baidu",
+						"com"
 					]
 				},
 				"description": null

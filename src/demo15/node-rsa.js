@@ -86,7 +86,7 @@ var　PRIVATE_KEY_PEM = "-----BEGIN PRIVATE KEY-----\n" +
  */
 function encrypt(text, key, isPub) {
   // Encrypt with key...
-  var encryptKey = key;
+  var encryptKey = isPub ? new NodeRSA(key, 'pkcs8-public-pem', {encryptionScheme: 'pkcs1'}) : new NodeRSA(key, 'pkcs8-pem', {encryptionScheme: 'pkcs1'});
   if(isPub) {
     return encryptKey.encrypt(text, BASE64);
   } else {
@@ -103,7 +103,7 @@ function encrypt(text, key, isPub) {
  */
 function decrypt(text, key, isPub) {
   // Decrypt with key...
-  var decryptKey = key;
+  var decryptKey = isPub ? new NodeRSA(key, 'pkcs8-public-pem', {encryptionScheme: 'pkcs1'}) : new NodeRSA(key, 'pkcs8-pem', {encryptionScheme: 'pkcs1'});
   if(isPub) {
     return decryptKey.decryptPublic(text, UTF8)
   } else {
@@ -124,16 +124,16 @@ function test() {
   console.log(publicKey);
 
   var plainText = 'Java中文';
-  var encryptText = encrypt(plainText, pubKeyObj, true);
+  var encryptText = encrypt(plainText, publicKey, true);
   console.log(plainText, encryptText);
-  var decryptText = decrypt(encryptText, prvKeyObj, false);
+  var decryptText = decrypt(encryptText, privateKey, false);
   console.log(plainText, decryptText);
 
   // 私钥加密，公钥验签有问题
   var plainText = 'Java中文2';
-  var encryptText = encrypt(plainText, prvKeyObj, false);
+  var encryptText = encrypt(plainText, privateKey, false);
   console.log(plainText, encryptText);
-  var decryptText = decrypt(encryptText, pubKeyObj, true);
+  var decryptText = decrypt(encryptText, publicKey, true);
   console.log(plainText, decryptText);
 
 }

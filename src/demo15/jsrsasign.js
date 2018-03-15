@@ -136,16 +136,16 @@ function test() {
 
 
   var plainText = 'Java中文';
-  var encryptText = encrypt(plainText, PUBLIC_KEY, true);
+  var encryptText = encrypt(plainText, publicKey, true);
   console.log(plainText, encryptText);
-  var decryptText = decrypt(encryptText, PRIVATE_KEY, false);
+  var decryptText = decrypt(encryptText, privateKey, false);
   console.log(plainText, decryptText);
 
   // 私钥加密，公钥验签有问题
   var plainText = 'Java中文2';
-  var encryptText = encrypt(plainText, PRIVATE_KEY, false);
+  var encryptText = encrypt(plainText, privateKey, false);
   console.log(plainText, encryptText);
-  var decryptText = decrypt(encryptText, PUBLIC_KEY, true);
+  var decryptText = decrypt(encryptText, publicKey, true);
   console.log(plainText, decryptText);
 }
 

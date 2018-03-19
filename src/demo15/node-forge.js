@@ -84,6 +84,7 @@ var PRIVATE_KEY_PEM = "-----BEGIN PRIVATE KEY-----\n" +
   "fxxsxy/F57xuCQ==\n" +
   "-----END PRIVATE KEY-----";
 
+
 /**
  * 加密
  * @param text 待加密的字符串
@@ -125,30 +126,39 @@ function decrypt(text, key, isPub) {
 
 /**
  * 签名
- * @param md md摘要
- * @param key 加密的key
+ * @param key 私钥
+ * @param message 内容
  * @returns {*}
  */
-function sign(key, md, scheme) {
+function sign(key, message, scheme) {
   // Sign with key...
   var signKeyPem = pki.privateKeyBodyToPem(key);
   var signKey = pki.privateKeyPKCS1ToPKCS8(pki.privateKeyFromPem(signKeyPem));
-  var buffer = util.createBuffer(util.encodeUtf8(md));
-  var binaryString = buffer.getBytes();
-  return util.encode64(signKey.sign(binaryString, scheme));
+  // 签名
+  var mdMessage = md.sha1.create();
+  mdMessage.update(util.encodeUtf8(message));
+  return util.encode64(signKey.sign(mdMessage, scheme));
 }
 
 /**
  * 验签
- * @param md md摘要
- * @param key 加密的key
+ * @param key 公钥
+ * @param message 内容
+ * @param sign 签名
  * @returns {*}
  */
-function verify(key, digest, signature, scheme) {
+function verify(key, message, sign, scheme) {
   // Verify with key...
   var verifyKeyPem = pki.publicKeyBodyToPem(key);
   var verifyKey = pki.publicKeyFromPem(verifyKeyPem);
-  return verifyKey.verify(digest, signature, scheme);
+
+  // 验签
+  var mdMessage = md.sha1.create();
+  mdMessage.update(util.encodeUtf8(message));
+  // 摘要
+  var digest = mdMessage.digest().getBytes();
+
+  return verifyKey.verify(digest, util.decode64(sign), scheme);
 }
 
 
@@ -191,21 +201,11 @@ function test() {
   var plainText = 'Java中文';
   var encryptText = encrypt(plainText, publicKey, true);
 
-  // 摘要
-  var mdText = md.sha1.create();
-  mdText.update(util.encodeUtf8(encryptText));
-  var digest = mdText.digest().getBytes();
-  // 摘要信息
-  console.log(mdText.digest().toHex());
-
   // 签名
-  var prvKeyObj = pki.privateKeyPKCS1ToPKCS8(pki.privateKeyFromPem(pki.privateKeyBodyToPem(privateKey)));
-  var signature = prvKeyObj.sign(mdText);
-  var sign = util.encode64(signature);
-  console.log(sign);
+  var signature = sign(privateKey, encryptText);
 
   // 验签
-  var isPass = verify(publicKey, digest, util.decode64(sign));
+  var isPass = verify(publicKey, encryptText, signature);
   console.log(isPass);
 
   // 解密

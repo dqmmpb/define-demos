@@ -59,7 +59,7 @@ var PUBLIC_KEY_PEM = "-----BEGIN PUBLIC KEY-----\n" +
   "3fsmuSvMjt6gX/7kd3TQO2Tbjs8sFokJ3LPYqrhWhHCxFe52USMiKEanKbSZch1u\n" +
   "PF1+pQHfV4zo8Mu6FQIDAQAB\n" +
   "-----END PUBLIC KEY-----";
-var　PRIVATE_KEY_PEM = "-----BEGIN PRIVATE KEY-----\n" +
+var PRIVATE_KEY_PEM = "-----BEGIN PRIVATE KEY-----\n" +
   "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKyvFjvPCdTz+71r\n" +
   "koKUSMQcOIbIxdgElSv6KXk/D0qxWoW6HJ2NXsSIwFPKRDhe5l1oFaqUDsow6Kj3\n" +
   "Gwvye4xk5K7d+ya5K8yO3qBf/uR3dNA7ZNuOzywWiQncs9iquFaEcLEV7nZRIyIo\n" +
@@ -111,30 +111,77 @@ function decrypt(text, key, isPub) {
   }
 }
 
+/**
+ * 签名
+ * @param key 私钥
+ * @param message 内容
+ * @returns {*}
+ */
+function sign(key, message, scheme) {
+  // Sign with key...
+  var signKey = new NodeRSA(key, 'pkcs8-pem', {encryptionScheme: 'pkcs1'});
+  // 签名
+  return signKey.sign(message, BASE64, UTF8);
+}
+
+/**
+ * 验签
+ * @param key 公钥
+ * @param message 内容
+ * @param sign 签名
+ * @returns {*}
+ */
+function verify(key, message, sign, scheme) {
+  // Verify with key...
+  var verifyKey = new NodeRSA(key, 'pkcs8-public-pem', {encryptionScheme: 'pkcs1'});
+  // 验签
+  return verifyKey.verify(message, sign, UTF8, BASE64);
+}
+
+
 function test() {
   var keyPair = {
     prvKeyObj: new NodeRSA(PRIVATE_KEY, 'pkcs8-pem', {encryptionScheme: 'pkcs1'}),
     pubKeyObj: new NodeRSA(PUBLIC_KEY, 'pkcs8-public-pem', {encryptionScheme: 'pkcs1'}),
   };
+
   var prvKeyObj = keyPair.prvKeyObj;
   var pubKeyObj = keyPair.pubKeyObj;
   var privateKey = prvKeyObj.getKey('pkcs8');
-  var publicKey = prvKeyObj.getKey('pkcs8-public');
+  var publicKey = pubKeyObj.getKey('pkcs8-public');
   console.log(privateKey);
   console.log(publicKey);
 
-  var plainText = 'Java中文';
-  var encryptText = encrypt(plainText, publicKey, true);
-  console.log(plainText, encryptText);
-  var decryptText = decrypt(encryptText, privateKey, false);
-  console.log(plainText, decryptText);
+
+  // var plainText = 'Java中文';
+  // var encryptText = encrypt(plainText, publicKey, true);
+  // console.log(plainText, encryptText);
+  // var decryptText = decrypt(encryptText, privateKey, false);
+  // console.log(plainText, decryptText);
 
   // 私钥加密，公钥验签有问题
-  var plainText = 'Java中文2';
-  var encryptText = encrypt(plainText, privateKey, false);
-  console.log(plainText, encryptText);
-  var decryptText = decrypt(encryptText, publicKey, true);
-  console.log(plainText, decryptText);
+  // var plainText = 'Java中文2';
+  // var encryptText = encrypt(plainText, privateKey, false);
+  // console.log(plainText, encryptText);
+  // var decryptText = decrypt(encryptText, publicKey, true);
+  // console.log(plainText, decryptText);
+
+
+  // 加密
+  var plainText = 'Java中文';
+  var encryptText = encrypt(plainText, publicKey, true);
+
+  // 签名
+  var signature = sign(privateKey, encryptText);
+
+  // 验签
+  var isPass = verify(publicKey, encryptText, signature);
+  console.log(isPass);
+
+  // 解密
+  var decryptText = decrypt(encryptText, privateKey, false);
+  console.log(decryptText);
+
 
 }
 

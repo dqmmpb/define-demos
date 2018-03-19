@@ -6,3 +6,4 @@ for(var i in CryptoJS.SHA1('123')) {
 }
 
 console.log(CryptoJS.SHA1('123').toString());
+

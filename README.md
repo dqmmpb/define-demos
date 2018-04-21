@@ -19,3 +19,6 @@ caman 修改了caman的代码，支持https和http的远程图片地址，因此
 ```json
 "caman": "git+ssh://git@github.com/dqmmpb/CamanJS.git#node-remote-fetch",
 ```
+
+## demo19 - gl-matrix/sylvester
+矩阵变换 - 平移/旋转/缩放 的一些使用

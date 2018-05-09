@@ -1,6 +1,6 @@
-import * as GLMatrix from './glMatrix';
+import * as MatrixUtil from './glMatrix';
 
-const {Matrix} = GLMatrix;
+const {Matrix, Vector} = MatrixUtil;
 
 const DD = Matrix.create();
 const DD1 = DD.translate(-520.5, -370);
@@ -11,6 +11,11 @@ console.log(`matrix: ${DD}`);
 console.log(`move matrix: ${DD1}`);
 console.log(`rotate matrix: ${DD2}`);
 console.log(`after matrix: ${DD3}`);
+console.log(`reverse matrix: ${DD3.invert()}`);
+
+const V1 = Vector.create([2, 3, 1]);
+console.log(`${V1}`);
+console.log(`${V1.x(DD3)}`);
 //
 //
 //
@@ -55,4 +60,41 @@ console.log(`after matrix: ${DD3}`);
 // let out = new Array(9);
 // multiply(out, a, b)
 // console.log(out);
-
+//
+//
+// let a = [
+//   -0.83907151222229,-0.5440211296081543,0,
+//   0.5440211296081543,-0.83907151222229,0,
+//   0,0,1
+// ];
+//
+// let b = [
+//   [-0.83907151222229,-0.5440211296081543,0],
+//   [0.5440211296081543,-0.83907151222229,0],
+//   [0,0,1]
+// ];
+//
+// // console.log(a);
+//
+// class Test {
+//   static create(...values) {
+//     console.log(values);
+//     return new Test(values);
+//   }
+//   constructor(values) {
+//     this.values = values;
+//   }
+// }
+//
+// // function test(...arr) {
+// //   if (arr instanceof Array) {
+// //     console.log('array: ');
+// //     console.log(arr);
+// //   } else {
+// //   }
+// // }
+//
+// // test(1, 2, 3);
+//
+// console.log(Test.create(1, 2, 3));
+// console.log(Test.create([1, 2, 3]));

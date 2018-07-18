@@ -216,6 +216,15 @@ class Matrix {
   toString() {
     return this.matrix.toString();
   }
+
+  // toArray方法转换为二维数组
+  toArray() {
+    const matrixArray = [];
+    for (let i = 1; i <= 3; i += 1) {
+      matrixArray.push(this.row(i).toArray());
+    }
+    return matrixArray;
+  }
 }
 
 export {

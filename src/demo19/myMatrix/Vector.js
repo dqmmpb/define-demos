@@ -72,6 +72,14 @@ class Vectors {
       return vector.toString();
     }).toString();
   }
+  // toArray方法转换为二维数组
+  toArray() {
+    const vectorsArray = [];
+    for (let i = 1; i <= this.vectors.length; i += 1) {
+      vectorsArray.push(this.row(i).toArray());
+    }
+    return vectorsArray;
+  }
 }
 
 /**
@@ -115,6 +123,14 @@ class Vector {
   // toString方法
   toString() {
     return this.vector.toString();
+  }
+  // toArray方法转换为二维数组
+  toArray() {
+    const vectorArray = [];
+    for (let i = 1; i <= this.vector.length; i += 1) {
+      vectorArray.push(this.e(i));
+    }
+    return vectorArray;
   }
 }
 

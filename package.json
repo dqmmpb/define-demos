@@ -22,12 +22,14 @@
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-load-plugins": "^1.5.0",
+    "ololog": "^1.1.110",
     "request": "^2.87.0",
     "requirejs": "^2.3.2"
   },
   "dependencies": {
     "amdefine": "^1.0.1",
     "caman": "git+ssh://git@github.com/dqmmpb/CamanJS.git#node-remote-fetch",
+    "chalk": "^2.4.1",
     "chrome-remote-interface": "^0.26.0",
     "crypto-js": "^3.1.9-1",
     "faker": "^4.1.0",

@@ -22,3 +22,9 @@ caman 修改了caman的代码，支持https和http的远程图片地址，因此
 
 ## demo19 - gl-matrix/sylvester
 矩阵变换 - 平移/旋转/缩放 的一些使用
+
+## demo24 - mocha/idcard test
+idcard 修改了一些源码，因此需要使用git的分支
+```json
+"js-idcard": "git+ssh://git@github.com/dqmmpb/IdCard.git",
+```

@@ -59,7 +59,7 @@
     "sequelize": "^4.38.0",
     "sylvester": "0.0.21",
     "thunkify": "^2.1.2",
-    "ursa": "^0.9.4",
+    "ursa": "git+ssh://git@github.com/JoshKaufman/ursa.git",
     "vectorious": "^4.8.2"
   }
 }

@@ -162,10 +162,6 @@ function lottery(N, M) {
   return result;
 }
 
-const result = lottery(100000, 100000);
-
-console.log(result);
-
 //
 //
 // function randomNum(N, Num) {
@@ -190,3 +186,7 @@ console.log(result);
 // }
 //
 // console.log(computeMaxCallStackSize())
+
+module.exports = {
+  lottery,
+}

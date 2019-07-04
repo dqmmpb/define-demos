@@ -28,3 +28,4 @@ idcard 修改了一些源码，因此需要使用git的分支
 ```json
 "js-idcard": "git+ssh://git@github.com/dqmmpb/IdCard.git",
 ```
+## demo25 - unicode2utf8 诡异的汉字编码

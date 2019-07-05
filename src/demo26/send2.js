@@ -113,7 +113,7 @@ client.connect()
   // const to = ["dqmmpb@gmail.com"];
   const to = ["dqmmpb@gmail.com", "dqmmpb@qq.com"];
   const body = attachmentBuilder(from, to, attachments);
-  console.log(body)
+  console.log(body);
   return client.send({
     envelope: {
       from,

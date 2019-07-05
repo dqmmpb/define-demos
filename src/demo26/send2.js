@@ -5,38 +5,38 @@ import tz from 'timezone/loaded'
 import MimeBuilder from 'emailjs-mime-builder'
 import {QQ, GMAIL} from "./email-ignore";
 
-const client = new SMTPClient(QQ.SMTP.host, QQ.SMTP.port, {
-  auth: {
-    user: QQ.user,
-    pass: QQ.pass,
-  }
-});
-
-// const client = new SMTPClient(GMAIL.SMTP.host, GMAIL.SMTP.port, {
+// const client = new SMTPClient(QQ.SMTP.host, QQ.SMTP.port, {
 //   auth: {
-//     user: GMAIL.user,
-//     pass: GMAIL.pass,
+//     user: QQ.user,
+//     pass: QQ.pass,
 //   }
 // });
 
-const readFile = filePath => {
+const client = new SMTPClient(GMAIL.SMTP.host, GMAIL.SMTP.port, {
+  auth: {
+    user: GMAIL.user,
+    pass: GMAIL.pass,
+  }
+});
+
+const readFile = file => {
   return new Promise((resolve, reject) => {
-    fs.readFile(filePath, (err, data) => {
+    fs.readFile(file, (err, data) => {
       if(err){
         reject(err);
       }
       else{
         resolve({
-          fileName: path.basename(filePath),
-          data: data,
+          fileName: path.basename(file),
+          data,
         })
       }
     });
   });
 };
 
-const readFiles = filePaths => {
-  return Promise.all(filePaths.map(filePaths => readFile(filePaths)))
+const readFiles = files => {
+  return Promise.all(files.map(file => readFile(file)))
 };
 
 
@@ -96,22 +96,24 @@ const textBuilder = (from, to) => {
   return rootNode.build();
 };
 
-client.connect().then(() => {
-  const attachments = [
+client.connect()
+.then(() => {
+  return readFiles([
     "/home/alphabeta/Desktop/email/image.jpg",
-    "/home/alphabeta/Desktop/email/video.mp4",
-    "/home/alphabeta/Desktop/email/中文.txt",
-    "/home/alphabeta/Desktop/email/小程序需求框架.doc",
-    "/home/alphabeta/Desktop/email/pptx.pptx",
-  ];
-  return readFiles(attachments);
+    // "/home/alphabeta/Desktop/email/video.mp4",
+    // "/home/alphabeta/Desktop/email/中文.txt",
+    // "/home/alphabeta/Desktop/email/小程序需求框架.doc",
+    // "/home/alphabeta/Desktop/email/pptx.pptx",
+  ]);
 })
 .then((attachments) => {
   console.log('connect success');
+  console.log(attachments[0].data)
   const from = client.getOptions().auth.user;
   // const to = ["dqmmpb@gmail.com"];
   const to = ["dqmmpb@gmail.com", "dqmmpb@qq.com"];
   const body = attachmentBuilder(from, to, attachments);
+  console.log(body)
   return client.send({
     envelope: {
       from,

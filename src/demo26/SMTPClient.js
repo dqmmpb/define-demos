@@ -4,24 +4,24 @@ class SMTPClient {
   constructor(host, port, options = {}) {
     this.options = options;
     this.client = new SmtpClient(host, port, options);
+    this.client.onerror = (error) => {
+      throw error;
+    };
   }
 
   getOptions() {
-    return this.options
+    return this.options;
   }
 
   connect() {
     return new Promise((resolve, reject) => {
       try {
         this.client.onidle = () => {
-          resolve()
-        };
-        this.client.onerror = (error) => {
-          reject(error)
+          resolve();
         };
         this.client.connect();
       } catch (e) {
-        reject(e)
+        reject(e);
       }
     });
   }
@@ -37,7 +37,7 @@ class SMTPClient {
 
         this.client.onready = (failedRecipients) => {
           if(failedRecipients.length){
-            reject(new Error(`The following addresses were rejected: ${failedRecipients}`))
+            reject(new Error(`The following addresses were rejected: ${failedRecipients}`));
           }
           this.client.send(body);
           this.client.end();
@@ -47,22 +47,22 @@ class SMTPClient {
           if(success){
             resolve();
           } else {
-            reject(new Error(`The message was transmitted failed`))
+            reject(new Error(`The message was transmitted failed`));
           }
         }
       } catch (e) {
-        reject(e)
+        reject(e);
       }
-    })
+    });
   }
 
   quit() {
     return new Promise((resolve, reject) => {
       try {
-        this.client.quit()
-        resolve()
+        this.client.quit();
+        resolve();
       } catch (e) {
-        reject(e)
+        reject(e);
       }
     })
   }

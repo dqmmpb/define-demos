@@ -1,5 +1,8 @@
 import ImapClient from 'emailjs-imap-client'
 import {QQ, GMAIL} from "./email-ignore";
+import moment from 'moment';
+import _ from 'lodash';
+import Page from './Page';
 import io from 'socket.io-client';
 
 /**
@@ -16,10 +19,10 @@ import io from 'socket.io-client';
  *      cd emailjs-tcp-proxy
  *      PROXY_PORT=8889 npm start
  */
-const client = new ImapClient(QQ.IMAP.host, QQ.IMAP.port, {
+const client = new ImapClient(GMAIL.IMAP.host, GMAIL.IMAP.port, {
   auth: {
-    user: QQ.user,
-    pass: QQ.pass,
+    user: GMAIL.user,
+    pass: GMAIL.pass,
   },
   ws: {
     url: 'http://localhost:8888',
@@ -54,9 +57,21 @@ client.connect().then(() => {
     console.log(mailbox)
   });
 }).then(() => {
-  return client.listMessages('INBOX', '1:10', ['uid', 'flags', 'envelope']).then((messages) => {
-    messages.forEach((message) => console.log(`${message.envelope.subject} Flags for ${message.uid} : ${message.flags.join(', ')}`));
+  return client.search('INBOX', { all: true }, {byUid: true}).then((result) => {
+    console.log('before: ', result);
+    // result.forEach((uid) => console.log('Message ' + uid + ''));
+    const reverseUids = _.reverse(result);
+    const page = new Page(reverseUids);
+
+    console.log('after: ', page);
+    client.listMessages('INBOX', page.list.join(','), ['uid', 'flags', 'envelope'], {byUid: true}).then((messages) => {
+      const reverseMessages = _.reverse(messages);
+      reverseMessages.forEach((message) => console.log(`${message.uid} ${moment(message.envelope.date).format('L')} ${message.envelope.from.map(item => item.address)} ${message.envelope.subject} : ${message.flags.join(', ')}`));
+    });
   });
+  // return client.listMessages('INBOX', '1:10', ['uid', 'flags', 'envelope']).then((messages) => {
+  //   messages.forEach((message) => console.log(`${message.envelope.subject} Flags for ${message.uid} : ${message.flags.join(', ')}`));
+  // });
 }).then(() => {
   return client.logout().then(() => { /* connection terminated */ });
 }).then(() => {

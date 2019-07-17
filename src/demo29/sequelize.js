@@ -89,14 +89,23 @@ async function getTag(batchId) {
   return objs;
 }
 
-async function getAnnotation(batchId) {
-  const images = await TaskImageData.findAll({
-    where: {
-      batchId: {
-        [Op.eq]: batchId
-      }
-    }
+/**
+ *
+ * @param batchId
+ * @param batchStep 标注/质检  标注:1,质检:2
+ * @returns {Promise<Array>}
+ */
+async function getTaskImageData(batchId, batchStep) {
+  const taskImageData = await sequelize.query('select C.*, D.url, D.width, D.height from (select B.* from (select * from task where batch_id = ? and category = ?) as A inner join (select * from task_image_data where batch_id = ?) as B on A.id = B.task_id) as C left join (select * from image where batch_id = ?) as D on C.image_id = D.id', {
+    replacements: [batchId, batchStep, batchId, batchId],
+    type: Sequelize.QueryTypes.SELECT,
   });
+  return taskImageData;
+}
+
+
+async function getAnnotation(batchId, batchStep) {
+  const images = await getTaskImageData(batchId, batchStep);
   let annotations = [];
   if(images) {
     let totalIndex = 1;
@@ -143,10 +152,10 @@ async function getAnnotation(batchId) {
 }
 
 
-async function generate(batchId) {
+async function generate(batchId, batchStep) {
   const images = await getImage(batchId);
   const tags = await getTag(batchId);
-  const annotations = await getAnnotation(batchId);
+  const annotations = await getAnnotation(batchId, batchStep);
   return {
     batchId,
     images,
@@ -156,7 +165,7 @@ async function generate(batchId) {
 }
 
 
-generate(30).then((batch) => {
+generate(30, 1).then((batch) => {
   const {
     batchId,
     images,

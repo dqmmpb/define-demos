@@ -44,6 +44,7 @@
     "fecha": "^2.3.3",
     "fibers": "^2.0.2",
     "gl-matrix": "^2.7.1",
+    "image-size": "^0.7.4",
     "immutable": "^3.8.2",
     "install": "^0.12.1",
     "jimp": "^0.2.28",

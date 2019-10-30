@@ -64,7 +64,7 @@
     "path-to-regexp": "^2.2.1",
     "ramda": "^0.25.0",
     "redis": "^2.8.0",
-    "sequelize": "^4.38.0",
+    "sequelize": "^5.15.1",
     "sylvester": "0.0.21",
     "thunkify": "^2.1.2",
     "timezone": "^1.0.22",

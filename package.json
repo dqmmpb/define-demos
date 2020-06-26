@@ -50,7 +50,7 @@
     "jimp": "^0.2.28",
     "js-idcard": "git+ssh://git@github.com/dqmmpb/IdCard.git",
     "jsencrypt": "^3.0.0-rc.1",
-    "jsrsasign": "^8.0.12",
+    "jsrsasign": "^8.0.19",
     "lighthouse": "^3.0.3",
     "lodash": "^4.17.14",
     "log4js": "^3.0.2",

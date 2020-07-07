@@ -60,7 +60,7 @@
     "node-forge": "^0.8.4",
     "node-rsa": "^1.0.0",
     "nodemailer": "^6.2.1",
-    "npm": "^6.2.0",
+    "npm": "^6.14.6",
     "path-to-regexp": "^2.2.1",
     "ramda": "^0.25.0",
     "redis": "^2.8.0",

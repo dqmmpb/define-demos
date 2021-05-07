@@ -52,7 +52,7 @@
     "jsencrypt": "^3.0.0-rc.1",
     "jsrsasign": "^8.0.12",
     "lighthouse": "^3.0.3",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.21",
     "log4js": "^3.0.2",
     "mathjs": "^5.0.4",
     "mocha": "^5.2.0",

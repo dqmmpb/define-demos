@@ -54,7 +54,7 @@
     "lighthouse": "^3.0.3",
     "lodash": "^4.17.14",
     "log4js": "^3.0.2",
-    "mathjs": "^5.0.4",
+    "mathjs": "^7.5.1",
     "mocha": "^5.2.0",
     "mysql2": "^1.5.3",
     "node-forge": "^0.8.4",
